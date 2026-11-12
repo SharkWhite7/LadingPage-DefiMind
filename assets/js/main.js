@@ -256,6 +256,109 @@
     });
   }
 
+
+  /* ----------------------------------------------------------
+     Partículas do hero
+
+     Pontos de luz a subir devagar, com um balanço lateral para
+     não parecerem a cair em linha recta. Param quando o separador
+     está oculto ou quando o hero sai do ecrã: não vale gastar
+     bateria a desenhar o que ninguém está a ver.
+  ---------------------------------------------------------- */
+  var canvas = document.getElementById('heroParticles');
+
+  if (canvas && !reduceMotion) {
+    var ctx = canvas.getContext('2d');
+    var pontos = [];
+    var raf = null;
+    var visivel = true;
+    var largura = 0, altura = 0;
+
+    var CORES = ['36,132,252', '96,165,250', '255,255,255', '30,186,152'];
+
+    var dimensionar = function () {
+      var r = canvas.getBoundingClientRect();
+      /* Pontos de 1-2px não ganham nada com densidade alta e num
+         telemóvel seria o dobro dos píxeis a desenhar por frame. */
+      var dpr = Math.min(window.devicePixelRatio || 1, r.width < 760 ? 1 : 1.5);
+      largura = r.width; altura = r.height;
+      canvas.width = Math.round(largura * dpr);
+      canvas.height = Math.round(altura * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    var criar = function (inicial) {
+      return {
+        x: Math.random() * largura,
+        y: inicial ? Math.random() * altura : altura + 10,
+        r: Math.random() * 1.8 + 0.5,
+        vy: Math.random() * 0.26 + 0.07,
+        balanco: Math.random() * 0.5 + 0.15,
+        fase: Math.random() * Math.PI * 2,
+        cor: CORES[Math.floor(Math.random() * CORES.length)],
+        alfa: Math.random() * 0.45 + 0.15
+      };
+    };
+
+    var povoar = function () {
+      /* menos pontos em ecrãs pequenos, onde pesariam mais e veriam-se menos */
+      var n = Math.round(Math.min(largura, 1440) / 18);
+      pontos = [];
+      for (var i = 0; i < n; i++) pontos.push(criar(true));
+    };
+
+    var desenhar = function () {
+      ctx.clearRect(0, 0, largura, altura);
+      for (var i = 0; i < pontos.length; i++) {
+        var p = pontos[i];
+        p.y -= p.vy;
+        p.fase += 0.006;
+        var x = p.x + Math.sin(p.fase) * p.balanco * 14;
+
+        /* desvanece nas pontas, para não aparecerem nem sumirem de repente */
+        var borda = Math.min(1, Math.min(p.y, altura - p.y) / 110);
+        var a = p.alfa * Math.max(0, borda);
+
+        ctx.beginPath();
+        ctx.arc(x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.cor + ',' + a.toFixed(3) + ')';
+        ctx.fill();
+
+        if (p.y < -12) pontos[i] = criar(false);
+      }
+      raf = requestAnimationFrame(desenhar);
+    };
+
+    var arrancar = function () {
+      if (raf || !visivel) return;
+      raf = requestAnimationFrame(desenhar);
+    };
+    var parar = function () {
+      if (!raf) return;
+      cancelAnimationFrame(raf); raf = null;
+    };
+
+    dimensionar(); povoar(); arrancar();
+
+    var redimensionar = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(redimensionar);
+      redimensionar = setTimeout(function () { dimensionar(); povoar(); }, 180);
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) parar(); else arrancar();
+    });
+
+    /* pára assim que o hero sai do ecrã */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        visivel = es[0].isIntersecting;
+        if (visivel) arrancar(); else parar();
+      }, { threshold: 0 }).observe(canvas);
+    }
+  }
+
   /* ----------------------------------------------------------
      Contadores animados
   ---------------------------------------------------------- */

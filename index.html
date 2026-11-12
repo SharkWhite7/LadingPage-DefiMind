@@ -68,9 +68,46 @@
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="top">
   <div class="hero__bg" aria-hidden="true">
-    <div class="orb orb--1"></div>
-    <div class="orb orb--2"></div>
-    <div class="orb orb--3"></div>
+    <div class="aurora aurora--1"></div>
+    <div class="aurora aurora--2"></div>
+    <div class="aurora aurora--3"></div>
+
+    <svg class="ribbons" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="rb1" x1="0" y1="0" x2="1" y2="0.3">
+          <stop offset="0%"   stop-color="#2484fc" stop-opacity="0"/>
+          <stop offset="35%"  stop-color="#2484fc" stop-opacity=".85"/>
+          <stop offset="62%"  stop-color="#ffffff" stop-opacity=".75"/>
+          <stop offset="100%" stop-color="#2484fc" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="rb2" x1="0" y1="0" x2="1" y2="-0.2">
+          <stop offset="0%"   stop-color="#60a5fa" stop-opacity="0"/>
+          <stop offset="40%"  stop-color="#60a5fa" stop-opacity=".6"/>
+          <stop offset="70%"  stop-color="#ffffff" stop-opacity=".5"/>
+          <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="rb3" x1="0" y1="0" x2="1" y2="0.4">
+          <stop offset="0%"   stop-color="#1eba98" stop-opacity="0"/>
+          <stop offset="45%"  stop-color="#1eba98" stop-opacity=".45"/>
+          <stop offset="100%" stop-color="#2484fc" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <g class="ribbon ribbon--1">
+        <path d="M-200 430 C 180 250, 420 600, 760 400 S 1280 180, 1660 330"
+              fill="none" stroke="url(#rb1)" stroke-width="76" stroke-linecap="round"/>
+      </g>
+      <g class="ribbon ribbon--2">
+        <path d="M-200 560 C 240 420, 520 760, 880 540 S 1340 400, 1660 500"
+              fill="none" stroke="url(#rb2)" stroke-width="52" stroke-linecap="round"/>
+      </g>
+      <g class="ribbon ribbon--3">
+        <path d="M-200 300 C 300 180, 560 440, 900 250 S 1300 100, 1660 220"
+              fill="none" stroke="url(#rb3)" stroke-width="38" stroke-linecap="round"/>
+      </g>
+    </svg>
+
+    <canvas class="particles" id="heroParticles"></canvas>
     <div class="grid-lines"></div>
   </div>
 
