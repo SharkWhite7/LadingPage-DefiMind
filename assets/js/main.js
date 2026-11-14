@@ -1,625 +1,439 @@
-/* ============================================================
-   DeFiMind · Landing Page
-   ============================================================ */
+/* DeFiMind — landing page behaviour
+   No build step. ES5-safe syntax so it runs everywhere without transpiling. */
 (function () {
   'use strict';
 
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var doc = document;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function $(sel, root) { return (root || doc).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(sel)); }
 
   /* ----------------------------------------------------------
-     Moeda
+     Footer year
+     ---------------------------------------------------------- */
+  $$('[data-year]').forEach(function (el) {
+    el.textContent = String(new Date().getFullYear());
+  });
 
-     O visitante vê os valores na moeda do sítio onde está.
-     A projeção do simulador é uma percentagem, por isso o
-     resultado é correcto em qualquer moeda sem precisar de
-     taxas de câmbio.
-  ---------------------------------------------------------- */
-  var CURRENCIES = {
-    USD: { locale: 'en-US' },
-    EUR: { locale: 'pt-PT' },
-    BRL: { locale: 'pt-BR' },
-    GBP: { locale: 'en-GB' }
-  };
+  /* ----------------------------------------------------------
+     Nav: stuck state + mobile menu
+     ---------------------------------------------------------- */
+  (function nav() {
+    var bar = $('#nav');
+    var toggle = $('#navToggle');
+    var links = $('#navLinks');
+    if (!bar) return;
 
-  var REGION_CURRENCY = {
-    BR: 'BRL',
-    US: 'USD', CA: 'USD', AU: 'USD', NZ: 'USD', SG: 'USD', HK: 'USD',
-    GB: 'GBP',
-    PT: 'EUR', ES: 'EUR', FR: 'EUR', DE: 'EUR', IT: 'EUR', IE: 'EUR',
-    NL: 'EUR', BE: 'EUR', AT: 'EUR', FI: 'EUR', GR: 'EUR', LU: 'EUR',
-    SK: 'EUR', SI: 'EUR', EE: 'EUR', LV: 'EUR', LT: 'EUR', CY: 'EUR', MT: 'EUR'
-  };
-
-  var detectCurrency = function () {
-    var lang = navigator.language || 'en-US';
-    var region = (lang.split('-')[1] || '').toUpperCase();
-    if (REGION_CURRENCY[region]) return REGION_CURRENCY[region];
-    if (lang.toLowerCase().indexOf('pt') === 0) return 'EUR';
-    return 'USD';
-  };
-
-  /* useGrouping 'always': sem isto alguns locales escrevem "1000" mas "25 000" */
-  var makeFormatter = function (code) {
-    return new Intl.NumberFormat(CURRENCIES[code].locale, {
-      style: 'currency',
-      currency: code,
-      maximumFractionDigits: 0,
-      useGrouping: 'always'
-    });
-  };
-
-  var currency = detectCurrency();
-  var money = makeFormatter(currency);
-
-  var i18n = window.DFM_I18N || { t: function (k) { return k; }, onChange: function () {} };
-
-  /* o telemóvel do hero mostra a moeda de quem está a ver */
-  (function () {
-    var chip = document.getElementById('appCurChip');
-    if (chip) chip.textContent = currency;
-
-    var symEl = document.querySelector('.app__cur');
-    if (symEl) {
-      var parts = new Intl.NumberFormat(CURRENCIES[currency].locale, {
-        style: 'currency', currency: currency
-      }).formatToParts(1);
-      for (var i = 0; i < parts.length; i++) {
-        if (parts[i].type === 'currency') { symEl.textContent = parts[i].value; break; }
+    var stuck = false;
+    function onScroll() {
+      var should = window.scrollY > 12;
+      if (should !== stuck) {
+        stuck = should;
+        bar.classList.toggle('is-stuck', stuck);
       }
     }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    var balance = document.querySelector('.app__balance [data-count-to]');
-    if (balance) balance.dataset.locale = CURRENCIES[currency].locale;
+    if (!toggle || !links) return;
+
+    function close() {
+      links.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+    }
+    function open() {
+      links.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+    }
+
+    toggle.addEventListener('click', function () {
+      if (links.classList.contains('is-open')) close(); else open();
+    });
+
+    links.addEventListener('click', function (e) {
+      if (e.target && e.target.tagName === 'A') close();
+    });
+
+    doc.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && links.classList.contains('is-open')) {
+        close();
+        toggle.focus();
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 1180) close();
+    });
   })();
 
   /* ----------------------------------------------------------
-     Navegação: fundo ao rolar
-  ---------------------------------------------------------- */
-  var nav = document.getElementById('nav');
-  var onScroll = function () {
-    nav.classList.toggle('is-stuck', window.scrollY > 12);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+     Reveal on scroll (+ fallback if IntersectionObserver is missing)
+     ---------------------------------------------------------- */
+  (function reveal() {
+    var items = $$('.rv');
+    if (!items.length) return;
 
-  /* ----------------------------------------------------------
-     Menu mobile
-  ---------------------------------------------------------- */
-  var toggle = document.getElementById('navToggle');
-  var links = document.getElementById('navLinks');
-
-  var closeMenu = function () {
-    links.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Abrir menu');
-  };
-
-  toggle.addEventListener('click', function () {
-    var open = links.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-  });
-
-  links.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A') closeMenu();
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  document.addEventListener('click', function (e) {
-    if (!links.classList.contains('is-open')) return;
-    if (!links.contains(e.target) && !toggle.contains(e.target)) closeMenu();
-  });
-
-  /* ----------------------------------------------------------
-     Rede de segurança das animações
-
-     O IntersectionObserver é o mecanismo principal, mas há situações
-     em que o browser não entrega os callbacks (separador em segundo
-     plano, por exemplo). Como o conteúdo arranca invisível, isso
-     deixaria a página em branco. Este backstop ligado ao scroll
-     garante que tudo acaba por aparecer, e desliga-se sozinho quando
-     já não há nada à espera.
-  ---------------------------------------------------------- */
-  var pending = [];
-  var fallbackQueued = false;
-
-  var runFallback = function () {
-    if (!pending.length) return;
-    var margin = window.innerHeight * 0.95;
-    pending = pending.filter(function (item) {
-      var box = item.el.getBoundingClientRect();
-      if (box.top < margin && box.bottom > 0) { item.fn(); return false; }
-      return true;
-    });
-    if (!pending.length) {
-      window.removeEventListener('scroll', onFallbackScroll);
-      window.removeEventListener('resize', onFallbackScroll);
+    function showAll() {
+      items.forEach(function (el) { el.classList.add('is-in'); });
     }
-  };
 
-  var onFallbackScroll = function () {
-    if (fallbackQueued) return;
-    fallbackQueued = true;
-    requestAnimationFrame(function () { fallbackQueued = false; runFallback(); });
-  };
-
-  var watch = function (el, fn) { pending.push({ el: el, fn: fn }); };
-
-  window.addEventListener('scroll', onFallbackScroll, { passive: true });
-  window.addEventListener('resize', onFallbackScroll);
-
-  /* ----------------------------------------------------------
-     Animações de entrada
-  ---------------------------------------------------------- */
-  var revealables = document.querySelectorAll('.reveal');
-
-  var showReveal = function (el) { el.classList.add('is-in'); };
-
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    revealables.forEach(showReveal);
-  } else {
-    var revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        showReveal(entry.target);
-        revealObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
-    revealables.forEach(function (el) {
-      revealObserver.observe(el);
-      watch(el, function () { showReveal(el); });
-    });
-  }
-
-  /* ----------------------------------------------------------
-     Cartão: cai e assenta na mesa
-  ---------------------------------------------------------- */
-  var stages = document.querySelectorAll('.ccard-stage');
-
-  var dropStage = function (stage) {
-    if (stage.classList.contains('is-dropped')) return;
-    stage.classList.add('is-dropped');
-    /* quando pousa largamos a animação para o hover voltar a mandar */
-    stage.querySelector('.ccard').addEventListener('animationend', function () {
-      stage.classList.add('is-landed');
-    }, { once: true });
-  };
-
-  if (stages.length) {
     if (reduceMotion || !('IntersectionObserver' in window)) {
-      stages.forEach(function (s) { s.classList.add('is-dropped', 'is-landed'); });
-    } else {
-      var dropObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          dropStage(entry.target);
-          dropObserver.unobserve(entry.target);
+      // Fallback: reveal whatever is near the viewport, on scroll.
+      var check = function () {
+        var h = window.innerHeight || doc.documentElement.clientHeight;
+        var left = 0;
+        items.forEach(function (el) {
+          if (el.classList.contains('is-in')) return;
+          var r = el.getBoundingClientRect();
+          if (r.top < h - 60) el.classList.add('is-in'); else left++;
         });
-      }, { threshold: 0.3 });
-
-      stages.forEach(function (s) {
-        dropObserver.observe(s);
-        watch(s, function () { dropStage(s); });
-      });
-    }
-  }
-
-  /* ----------------------------------------------------------
-     Cartões em 3D
-
-     A inclinação segue o ponteiro e o brilho especular desloca-se
-     com ele. Combinado com as alturas (translateZ) de cada camada,
-     é o que faz o cartão ler como um objecto e não como um desenho.
-
-     Só em ponteiros finos: em ecrãs tácteis não há hover e o efeito
-     ficaria preso na última posição tocada.
-  ---------------------------------------------------------- */
-  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  if (fine && !reduceMotion) {
-    Array.prototype.forEach.call(document.querySelectorAll('.ccard'), function (card) {
-      var frame = null;
-
-      var move = function (e) {
-        var box = card.getBoundingClientRect();
-        var px = (e.clientX - box.left) / box.width;
-        var py = (e.clientY - box.top) / box.height;
-
-        if (frame) return;
-        frame = requestAnimationFrame(function () {
-          frame = null;
-          card.style.setProperty('--rx', ((0.5 - py) * 15).toFixed(2) + 'deg');
-          card.style.setProperty('--ry', ((px - 0.5) * 21).toFixed(2) + 'deg');
-          card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
-          card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
-        });
+        if (!left) window.removeEventListener('scroll', check);
       };
-
-      card.addEventListener('mouseenter', function () {
-        card.classList.add('is-tilting');
-      });
-
-      card.addEventListener('mousemove', move);
-
-      card.addEventListener('mouseleave', function () {
-        if (frame) { cancelAnimationFrame(frame); frame = null; }
-        card.classList.remove('is-tilting');
-        card.style.removeProperty('--rx');
-        card.style.removeProperty('--ry');
-        card.style.removeProperty('--mx');
-        card.style.removeProperty('--my');
-      });
-    });
-  }
-
-
-  /* ----------------------------------------------------------
-     Partículas do hero
-
-     Pontos de luz a subir devagar, com um balanço lateral para
-     não parecerem a cair em linha recta. Param quando o separador
-     está oculto ou quando o hero sai do ecrã: não vale gastar
-     bateria a desenhar o que ninguém está a ver.
-  ---------------------------------------------------------- */
-  var canvas = document.getElementById('heroParticles');
-
-  if (canvas && !reduceMotion) {
-    var ctx = canvas.getContext('2d');
-    var pontos = [];
-    var raf = null;
-    var visivel = true;
-    var largura = 0, altura = 0;
-
-    var CORES = ['36,132,252', '96,165,250', '255,255,255', '30,186,152'];
-
-    var dimensionar = function () {
-      var r = canvas.getBoundingClientRect();
-      /* Pontos de 1-2px não ganham nada com densidade alta e num
-         telemóvel seria o dobro dos píxeis a desenhar por frame. */
-      var dpr = Math.min(window.devicePixelRatio || 1, r.width < 760 ? 1 : 1.5);
-      largura = r.width; altura = r.height;
-      canvas.width = Math.round(largura * dpr);
-      canvas.height = Math.round(altura * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-
-    var criar = function (inicial) {
-      return {
-        x: Math.random() * largura,
-        y: inicial ? Math.random() * altura : altura + 10,
-        r: Math.random() * 1.8 + 0.5,
-        vy: Math.random() * 0.26 + 0.07,
-        balanco: Math.random() * 0.5 + 0.15,
-        fase: Math.random() * Math.PI * 2,
-        cor: CORES[Math.floor(Math.random() * CORES.length)],
-        alfa: Math.random() * 0.45 + 0.15
-      };
-    };
-
-    var povoar = function () {
-      /* menos pontos em ecrãs pequenos, onde pesariam mais e veriam-se menos */
-      var n = Math.round(Math.min(largura, 1440) / 18);
-      pontos = [];
-      for (var i = 0; i < n; i++) pontos.push(criar(true));
-    };
-
-    var desenhar = function () {
-      ctx.clearRect(0, 0, largura, altura);
-      for (var i = 0; i < pontos.length; i++) {
-        var p = pontos[i];
-        p.y -= p.vy;
-        p.fase += 0.006;
-        var x = p.x + Math.sin(p.fase) * p.balanco * 14;
-
-        /* desvanece nas pontas, para não aparecerem nem sumirem de repente */
-        var borda = Math.min(1, Math.min(p.y, altura - p.y) / 110);
-        var a = p.alfa * Math.max(0, borda);
-
-        ctx.beginPath();
-        ctx.arc(x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(' + p.cor + ',' + a.toFixed(3) + ')';
-        ctx.fill();
-
-        if (p.y < -12) pontos[i] = criar(false);
-      }
-      raf = requestAnimationFrame(desenhar);
-    };
-
-    var arrancar = function () {
-      if (raf || !visivel) return;
-      raf = requestAnimationFrame(desenhar);
-    };
-    var parar = function () {
-      if (!raf) return;
-      cancelAnimationFrame(raf); raf = null;
-    };
-
-    dimensionar(); povoar(); arrancar();
-
-    var redimensionar = null;
-    window.addEventListener('resize', function () {
-      clearTimeout(redimensionar);
-      redimensionar = setTimeout(function () { dimensionar(); povoar(); }, 180);
-    });
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) parar(); else arrancar();
-    });
-
-    /* pára assim que o hero sai do ecrã */
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) {
-        visivel = es[0].isIntersecting;
-        if (visivel) arrancar(); else parar();
-      }, { threshold: 0 }).observe(canvas);
-    }
-  }
-
-  /* ----------------------------------------------------------
-     Contadores animados
-  ---------------------------------------------------------- */
-  var counters = document.querySelectorAll('[data-count-to]');
-
-  var runCounter = function (el) {
-    var target = parseFloat(el.dataset.countTo);
-    var decimals = parseInt(el.dataset.decimals || '0', 10);
-    var locale = el.dataset.locale || 'pt-PT';
-    var duration = 1500;
-    var start = null;
-
-    var format = function (value) {
-      return value.toLocaleString(locale, {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-        useGrouping: 'always'
-      });
-    };
-
-    if (reduceMotion) {
-      el.textContent = format(target);
+      check();
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('resize', check);
+      // Safety net: never leave content hidden.
+      window.setTimeout(showAll, 3500);
       return;
     }
 
-    var tick = function (now) {
-      if (start === null) start = now;
-      var progress = Math.min((now - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = format(target * eased);
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-
-    requestAnimationFrame(tick);
-  };
-
-  if (!('IntersectionObserver' in window)) {
-    counters.forEach(runCounter);
-  } else {
-    var counterObserver = new IntersectionObserver(function (entries) {
+    var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        runCounter(entry.target);
-        counterObserver.unobserve(entry.target);
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
       });
-    }, { threshold: 0.5 });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 
-    counters.forEach(function (el) {
-      counterObserver.observe(el);
-      watch(el, function () { runCounter(el); });
-    });
-  }
+    items.forEach(function (el) { io.observe(el); });
 
-  /* ----------------------------------------------------------
-     Simulador de rendimento
-  ---------------------------------------------------------- */
-  var amountInput = document.getElementById('calcAmount');
-  var yearsInput = document.getElementById('calcYears');
-
-  if (amountInput && yearsInput) {
-    var amountOut = document.getElementById('calcAmountOut');
-    var yearsOut = document.getElementById('calcYearsOut');
-    var yearsLbl = document.getElementById('calcYearsLbl');
-    var resultEl = document.getElementById('calcResult');
-    var principalEl = document.getElementById('calcPrincipal');
-    var gainEl = document.getElementById('calcGain');
-    var barEl = document.getElementById('calcBar');
-    var rateEl = document.getElementById('calcRate');
-    var totalPctEl = document.getElementById('calcTotalPct');
-    var feesEl = document.getElementById('calcFees');
-    var netEl = document.getElementById('calcNet');
-    var tableBody = document.getElementById('calcTableBody');
-    var planButtons = document.querySelectorAll('.segmented:not(#curPicker) button');
-    var curButtons = document.querySelectorAll('#curPicker button');
-
-    var rate = 24;
-    var FEE = 0.013;   /* 1,3% por movimento, o mesmo que está nas perguntas */
-
-    var paintTrack = function (input) {
-      var pct = ((input.value - input.min) / (input.max - input.min)) * 100;
-      input.style.setProperty('--pct', pct + '%');
-    };
-
-    /* Cêntimos até 100 mil, unidades acima disso: abaixo desse valor os
-       cêntimos importam, acima só fariam ruído. */
-    var exact = function (v) {
-      var casas = Math.abs(v) < 100000 ? 2 : 0;
-      return new Intl.NumberFormat(CURRENCIES[currency].locale, {
-        style: 'currency', currency: currency,
-        minimumFractionDigits: casas, maximumFractionDigits: casas,
-        useGrouping: 'always'
-      }).format(v);
-    };
-
-    var pct = function (v) {
-      return new Intl.NumberFormat(CURRENCIES[currency].locale, {
-        minimumFractionDigits: 1, maximumFractionDigits: 1
-      }).format(v);
-    };
-
-    var update = function () {
-      var principal = Number(amountInput.value);
-      var years = Number(yearsInput.value);
-      var mult = Math.pow(1 + rate / 100, years);
-
-      /* Bruto: juros compostos sobre a taxa anual efectiva. */
-      var total = principal * mult;
-      var gain = total - principal;
-
-      /* Líquido: a comissão à entrada reduz o capital que fica a render,
-         por isso o custo dela também compõe. A comissão à saída incide
-         sobre o valor final. */
-      var net = principal * (1 - FEE) * mult * (1 - FEE);
-      var fees = total - net;
-
-      amountOut.textContent = exact(principal);
-      yearsOut.textContent = years + ' ' + i18n.t(years === 1 ? 'calc.yearOne' : 'calc.yearMany');
-      yearsLbl.textContent = years;
-
-      resultEl.textContent = exact(total);
-      principalEl.textContent = exact(principal);
-      gainEl.textContent = '+' + exact(gain);
-
-      rateEl.textContent = rate + '%';
-      totalPctEl.textContent = '+' + pct(gain / principal * 100) + '%';
-      feesEl.textContent = '−' + exact(fees);
-      netEl.textContent = exact(net);
-
-      barEl.style.width = Math.min((gain / total) * 100, 100).toFixed(1) + '%';
-
-      /* Ano a ano, para as contas poderem ser conferidas em vez de
-         aceites por fé. */
-      var linhas = '';
-      var saldo = principal;
-      for (var ano = 1; ano <= years; ano++) {
-        var inicio = saldo;
-        var juros = inicio * (rate / 100);
-        saldo = inicio + juros;
-        linhas += '<tr><td>' + ano + '</td><td>' + exact(inicio) +
-                  '</td><td class="calc__pos">+' + exact(juros) +
-                  '</td><td>' + exact(saldo) + '</td></tr>';
+    // If the tab was hidden while loading, the observer may not have fired.
+    doc.addEventListener('visibilitychange', function () {
+      if (!doc.hidden) {
+        var h = window.innerHeight || doc.documentElement.clientHeight;
+        items.forEach(function (el) {
+          if (el.getBoundingClientRect().top < h) el.classList.add('is-in');
+        });
       }
-      tableBody.innerHTML = linhas;
-
-      paintTrack(amountInput);
-      paintTrack(yearsInput);
-    };
-
-    var selectIn = function (group, chosen) {
-      group.forEach(function (btn) {
-        var on = btn === chosen;
-        btn.classList.toggle('is-active', on);
-        btn.setAttribute('aria-checked', String(on));
-      });
-    };
-
-    amountInput.addEventListener('input', update);
-    yearsInput.addEventListener('input', update);
-
-    planButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        selectIn(planButtons, btn);
-        rate = Number(btn.dataset.rate);
-        update();
-      });
     });
-
-    curButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        selectIn(curButtons, btn);
-        currency = btn.dataset.cur;
-        money = makeFormatter(currency);
-        update();
-      });
-    });
-
-    /* arranca na moeda de quem está a ver */
-    curButtons.forEach(function (btn) {
-      if (btn.dataset.cur === currency) selectIn(curButtons, btn);
-    });
-
-    update();
-
-    /* trocar de idioma reescreve "anos", por isso recalculamos */
-    i18n.onChange(update);
-  }
+  })();
 
   /* ----------------------------------------------------------
-     FAQ: só uma pergunta aberta de cada vez
-  ---------------------------------------------------------- */
-  var faqItems = document.querySelectorAll('.faq__item');
-  faqItems.forEach(function (item) {
-    item.addEventListener('toggle', function () {
-      if (!item.open) return;
-      faqItems.forEach(function (other) {
-        if (other !== item) other.open = false;
-      });
+     Hero aurora — drifting silk strands on canvas
+     ---------------------------------------------------------- */
+  (function aurora() {
+    var cv = $('#aurora');
+    if (!cv || reduceMotion) return;
+
+    var ctx = cv.getContext && cv.getContext('2d');
+    if (!ctx) return;
+
+    var W = 0, H = 0, dpr = 1, t = 0, raf = 0;
+
+    // Brand blue sampled from the logo mark, with the cyan of the swoosh.
+    var strands = [
+      { col: '23,99,201',   amp: 0.16, freq: 1.5, speed: 0.00022, y: 0.34, w: 150, phase: 0 },
+      { col: '43,138,248',  amp: 0.13, freq: 1.9, speed: 0.00029, y: 0.46, w: 120, phase: 1.7 },
+      { col: '26,215,234',  amp: 0.11, freq: 2.4, speed: 0.00035, y: 0.58, w: 95, phase: 3.1 },
+      { col: '43,138,248',  amp: 0.09, freq: 3.1, speed: 0.00042, y: 0.66, w: 70, phase: 4.6 },
+      { col: '116,179,255', amp: 0.07, freq: 3.8, speed: 0.00051, y: 0.28, w: 55, phase: 5.9 }
+    ];
+
+    function size() {
+      var rect = cv.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      W = Math.max(1, Math.round(rect.width));
+      H = Math.max(1, Math.round(rect.height));
+      cv.width = Math.round(W * dpr);
+      cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function strand(s, now) {
+      var steps = 42;
+      var phase = now * s.speed + s.phase;
+      ctx.beginPath();
+      for (var i = 0; i <= steps; i++) {
+        var p = i / steps;
+        var x = p * W;
+        var swell = Math.sin(p * Math.PI);                       // fade the ends
+        var y = s.y * H
+              + Math.sin(p * s.freq * Math.PI * 2 + phase) * s.amp * H * swell
+              + Math.sin(p * s.freq * 0.47 * Math.PI * 2 - phase * 1.6) * s.amp * 0.4 * H * swell;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+
+      var g = ctx.createLinearGradient(0, 0, W, 0);
+      g.addColorStop(0, 'rgba(' + s.col + ',0)');
+      g.addColorStop(0.5, 'rgba(' + s.col + ',0.5)');
+      g.addColorStop(1, 'rgba(' + s.col + ',0)');
+
+      ctx.strokeStyle = g;
+      ctx.lineCap = 'round';
+
+      // Draw the same path a few times: wide and faint, then narrow and bright.
+      var passes = [
+        { w: s.w, a: 0.10 },
+        { w: s.w * 0.45, a: 0.16 },
+        { w: s.w * 0.16, a: 0.30 },
+        { w: 1.3, a: 0.75 }
+      ];
+      for (var k = 0; k < passes.length; k++) {
+        ctx.globalAlpha = passes[k].a;
+        ctx.lineWidth = passes[k].w;
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // The canvas sits behind the whole page now, so it never scrolls away.
+    // 30fps is plenty for something this slow, and halves the work.
+    var last = -1e9, MIN_MS = 1000 / 30;
+
+    function paint(now) {
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter';
+      for (var i = 0; i < strands.length; i++) strand(strands[i], now);
+      ctx.globalCompositeOperation = 'source-over';
+      t = now;
+    }
+
+    function frame(now) {
+      if (doc.hidden) { raf = 0; return; }                        // resumed by visibilitychange
+      raf = window.requestAnimationFrame(frame);
+      if (now - last < MIN_MS) return;
+      last = now;
+      paint(now);
+    }
+
+    function start() { if (!raf) raf = window.requestAnimationFrame(frame); }
+    function stop() { if (raf) { window.cancelAnimationFrame(raf); raf = 0; } }
+
+    size();
+    start();
+
+    var rt;
+    window.addEventListener('resize', function () {
+      window.clearTimeout(rt);
+      rt = window.setTimeout(function () { size(); paint(t); }, 160);
     });
-  });
+
+    doc.addEventListener('visibilitychange', function () {
+      if (doc.hidden) stop(); else start();
+    });
+  })();
 
   /* ----------------------------------------------------------
-     Lista de espera
+     "Your worst day" calculator
+     ---------------------------------------------------------- */
+  (function calc() {
+    var cap = $('#capIn'), hot = $('#hotIn'), vault = $('#vaultIn');
+    if (!cap || !hot || !vault) return;
 
-     Sem backend ligado: guardamos localmente e confirmamos.
-     Para ligar a um serviço real (Formspree, Supabase, Mailchimp…),
-     substitui o bloco marcado abaixo por um fetch() para o endpoint.
-  ---------------------------------------------------------- */
-  var form = document.getElementById('waitlistForm');
+    var capOut = $('#capOut'), hotOut = $('#hotOut'), vaultOut = $('#vaultOut');
+    var big = $('#maxLoss'), eq = $('#maxEq'), pctNote = $('#maxPct');
 
-  if (form) {
-    var emailInput = document.getElementById('email');
-    var msg = document.getElementById('waitlistMsg');
-    var isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    var usd = new Intl.NumberFormat('en-US', {
+      style: 'currency', currency: 'USD',
+      minimumFractionDigits: 0, maximumFractionDigits: 0,
+      useGrouping: 'always'
+    });
 
-    var setMessage = function (text, state) {
+    function fill(el) {
+      var min = parseFloat(el.min), max = parseFloat(el.max), val = parseFloat(el.value);
+      var pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+      el.style.setProperty('--pct', pct.toFixed(2) + '%');
+    }
+
+    function pretty(n) {
+      if (n >= 10) return n.toFixed(0);
+      if (n >= 1) return n.toFixed(1);
+      return n.toFixed(2);
+    }
+
+    function render() {
+      var c = parseFloat(cap.value) || 0;
+      var h = parseFloat(hot.value) || 0;
+      var v = parseFloat(vault.value) || 0;
+      var loss = c + h;
+
+      capOut.textContent = usd.format(c);
+      hotOut.textContent = usd.format(h);
+      vaultOut.textContent = usd.format(v);
+
+      big.textContent = usd.format(loss);
+      eq.textContent = 'daily cap ' + usd.format(c) + ' + hot wallet ' + usd.format(h);
+
+      if (loss >= v) {
+        pctNote.textContent = 'That is everything in the vault. Lower the daily cap, or keep less in the hot wallet.';
+      } else {
+        pctNote.textContent = 'That is ' + pretty((loss / v) * 100) + '% of the vault. The rest cannot move without your signature.';
+      }
+
+      fill(cap); fill(hot); fill(vault);
+    }
+
+    [cap, hot, vault].forEach(function (el) {
+      el.addEventListener('input', render);
+      el.addEventListener('change', render);
+    });
+
+    render();
+  })();
+
+  /* ----------------------------------------------------------
+     Reject codes
+     ---------------------------------------------------------- */
+  (function codes() {
+    var list = $('#codeList');
+    var tabs = $$('.tabs button[data-tab]');
+    if (!list || !tabs.length) return;
+
+    var DATA = {
+      shared: [
+        ['POLICY_DENIED', 'No rule allows this payment. A new agent starts able to spend nothing at all.'],
+        ['LIMIT_EXCEEDED', 'Above the per-payment limit you set for this agent.'],
+        ['DAILY_CAP_REACHED', 'Today’s spending is already at your cap. It resets tomorrow, never sooner.'],
+        ['RECIPIENT_NOT_ALLOWED', 'The destination is not one you added to the allowlist.'],
+        ['DOMAIN_NOT_ALLOWED', 'The site asking to be paid is not a domain you approved.'],
+        ['CHAIN_NOT_ALLOWED', 'This agent is not allowed to spend on that chain.'],
+        ['TOKEN_NOT_ALLOWED', 'Only the chain’s dollar can be spent. Everything else is refused.'],
+        ['AMOUNT_NOT_EXACT', 'The amount would have to be rounded to fit. It is refused instead of rounded.'],
+        ['APPROVAL_REQUIRED', 'At or above your threshold, and nobody has approved it yet.'],
+        ['APPROVAL_EXPIRED', 'The request waited ten minutes without an answer. Silence is a no.'],
+        ['AGENT_PAUSED', 'The kill switch is on. Every agent is stopped, on every chain.'],
+        ['SIMULATION_FAILED', 'The test run could not finish, so nothing gets signed.']
+      ],
+      solana: [
+        ['UNKNOWN_PROGRAM', 'The transaction calls a program that is not on the allowlist.'],
+        ['AUTHORITY_CHANGE', 'It tries to hand control of an account to somebody else.'],
+        ['DELEGATE_DETECTED', 'It gives another account standing permission to move your tokens.'],
+        ['EXTRA_INSTRUCTION', 'There are more instructions than the payment needs, and the extras are not understood.']
+      ],
+      evm: [
+        ['APPROVAL_DETECTED', 'It grants a spender permission to take tokens later. A transfer never needs that.'],
+        ['UNKNOWN_SELECTOR', 'The call is to a function the parser does not recognise.'],
+        ['CONTRACT_NOT_ALLOWED', 'The target contract is not one you approved.'],
+        ['VALUE_NOT_ZERO', 'The call carries native currency when it should carry none.']
+      ]
+    };
+
+    function paint(key) {
+      var rows = DATA[key] || [];
+      var html = '';
+      for (var i = 0; i < rows.length; i++) {
+        html += '<div class="code"><p class="code__k">' + rows[i][0] + '</p>'
+             +  '<p class="code__v">' + rows[i][1] + '</p></div>';
+      }
+      list.innerHTML = html;
+    }
+
+    tabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        tabs.forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        paint(btn.getAttribute('data-tab'));
+      });
+    });
+
+    var active = tabs.filter(function (b) { return b.classList.contains('is-on'); })[0] || tabs[0];
+    paint(active.getAttribute('data-tab'));
+  })();
+
+  /* ----------------------------------------------------------
+     FAQ — one open at a time
+     ---------------------------------------------------------- */
+  (function faq() {
+    var items = $$('.faq__i');
+    items.forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (!d.open) return;
+        items.forEach(function (other) { if (other !== d) other.open = false; });
+      });
+    });
+  })();
+
+  /* ----------------------------------------------------------
+     Waitlist
+     ---------------------------------------------------------- */
+  (function waitlist() {
+    var form = $('#wlForm');
+    if (!form) return;
+
+    var input = $('#email', form);
+    var msg = $('#wlMsg');
+    var btn = form.querySelector('button[type=submit]');
+    var label = $('#wlBtnLabel');
+    var sending = false;
+
+    var TEXT = {
+      invalid: 'That email does not look right. Check it and try again.',
+      ok: 'You are on the list. We will write once, when it is ready.',
+      err: 'We could not accept that address. Try another one.',
+      fail: 'Something went wrong on our side. Please try again in a moment.',
+      offline: 'You appear to be offline. Try again once you are connected.'
+    };
+
+    function say(text, kind) {
+      if (!msg) return;
       msg.textContent = text;
-      msg.className = 'waitlist__msg ' + (state ? 'is-' + state : '');
-    };
+      msg.classList.remove('is-ok', 'is-err');
+      if (kind) msg.classList.add(kind === 'ok' ? 'is-ok' : 'is-err');
+    }
+
+    function busy(state) {
+      sending = state;
+      if (btn) btn.disabled = state;
+      if (label) label.textContent = state ? 'Sending…' : 'Join the waitlist';
+    }
+
+    function valid(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var email = emailInput.value.trim();
+      if (sending) return;
 
-      if (!isEmail.test(email)) {
-        emailInput.setAttribute('aria-invalid', 'true');
-        setMessage(i18n.t('cta.err'), 'err');
-        emailInput.focus();
+      var email = (input.value || '').trim();
+
+      if (!valid(email)) {
+        input.setAttribute('aria-invalid', 'true');
+        say(TEXT.invalid, 'err');
+        input.focus();
         return;
       }
-
-      emailInput.removeAttribute('aria-invalid');
-      setMessage('', null);
-
-      var button = form.querySelector('button[type="submit"]');
-      var label = button.textContent;
-      button.disabled = true;
-      button.textContent = i18n.t('cta.sending');
+      input.removeAttribute('aria-invalid');
 
       var cfg = window.DFM_CONFIG || {};
-
-      var terminar = function (texto, estado) {
-        form.reset();
-        button.disabled = false;
-        button.textContent = label;
-        setMessage(i18n.t(texto), estado);
-      };
-
       if (!cfg.supabaseUrl || !cfg.supabaseKey) {
-        terminar('cta.fail', 'err');
+        say(TEXT.fail, 'err');
         return;
       }
 
-      /* Só o cabeçalho apikey. A chave publishable não é um JWT, por isso
-         mandá-la também em Authorization: Bearer faz o PostgREST tentar
-         lê-la como token e devolver 401.
+      if (navigator.onLine === false) {
+        say(TEXT.offline, 'err');
+        return;
+      }
 
-         return=minimal: não queremos nada de volta.
+      busy(true);
+      say('', null);
 
-         Não usamos Prefer: resolution=ignore-duplicates porque isso
-         obriga o PostgREST a exigir privilégio de SELECT na tabela, que
-         recusámos de propósito para ninguém poder ler a lista. */
+      function done(text, kind) {
+        busy(false);
+        say(text, kind);
+        if (kind === 'ok') {
+          input.value = '';
+          if (label) label.textContent = 'Join the waitlist';
+        }
+      }
+
       fetch(cfg.supabaseUrl + '/rest/v1/waitlist', {
         method: 'POST',
         headers: {
@@ -627,35 +441,15 @@
           'Content-Type': 'application/json',
           'Prefer': 'return=minimal'
         },
-        body: JSON.stringify({
-          email: email,
-          lang: i18n.lang || 'pt',
-          source: 'landing'
-        })
+        body: JSON.stringify({ email: email, lang: 'en', source: 'landing' })
       }).then(function (res) {
-        /* 409 é email repetido. Mostramos sucesso na mesma: se disséssemos
-           "já estás inscrito", o formulário passava a ser uma forma de
-           descobrir quem está na lista, um email de cada vez. */
-        if (res.ok || res.status === 409) { terminar('cta.ok', 'ok'); return; }
-        /* 400 é o formato recusado pela restrição do servidor */
-        terminar(res.status === 400 ? 'cta.err' : 'cta.fail', 'err');
+        // 409 means the address is already on the list — same outcome for the visitor.
+        if (res.ok || res.status === 409) { done(TEXT.ok, 'ok'); return; }
+        done(res.status === 400 ? TEXT.err : TEXT.fail, 'err');
       }).catch(function () {
-        terminar('cta.fail', 'err');
+        done(TEXT.fail, 'err');
       });
     });
+  })();
 
-    emailInput.addEventListener('input', function () {
-      if (msg.textContent) setMessage('', null);
-      emailInput.removeAttribute('aria-invalid');
-    });
-  }
-
-  /* ----------------------------------------------------------
-     Ano no rodapé
-  ---------------------------------------------------------- */
-  var yearEl = document.querySelector('[data-year]');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  /* primeira passagem, para o que já está à vista ao abrir a página */
-  runFallback();
 })();

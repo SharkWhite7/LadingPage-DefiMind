@@ -1,21 +1,26 @@
 # DeFiMind · Landing Page
 
-Página de entrada da DeFiMind. HTML, CSS e JavaScript puros, sem build e sem dependências.
-Abre-se num browser e está a funcionar.
+Página de entrada da DeFiMind: a camada de segurança entre um agente de IA e a carteira
+dele, nativa de x402 e a lançar primeiro na Solana. HTML, CSS e JavaScript puros, sem
+build e sem dependências. Abre-se num browser e está a funcionar.
+
+**Estado: pré-lançamento.** Nada na página diz que o produto está no ar, auditado ou a
+correr em mainnet, porque não está. A Solana aparece como *Launching first* e as outras
+cadeias como *In development* / *Planned*, o rodapé e o formulário dizem-no por extenso, e
+a primeira pergunta das FAQ é "Is it live yet?" com a resposta "No." Se isso mudar,
+muda-se nesses sítios — não antes.
 
 ## Estrutura
 
 ```
 index.html               A página inteira
 assets/css/styles.css    Estilos e tokens de design
-assets/js/i18n.js        Dicionários e motor de idiomas
-assets/js/main.js        Navegação, animações, simulador, moeda, formulário
-assets/img/logo.png      Logótipo original (500×500, fundo transparente)
+assets/js/config.js      URL e chave publishable do Supabase
+assets/js/main.js        Navegação, animações, fundo, calculadora, códigos, FAQ, formulário
+assets/img/              Logótipo (marca, lettering e versão completa)
+supabase/migrations/     SQL da tabela da lista de espera
 vercel.json              Cabeçalhos de segurança e cache
 ```
-
-O `logo.png` é o ficheiro original da marca, usado tal e qual na navegação, no
-cartão, no rodapé e como ícone do separador. Não foi redesenhado nem convertido.
 
 ## Ver localmente
 
@@ -27,77 +32,150 @@ Depois abre `http://localhost:4173`.
 
 ## Publicar
 
-O site é estático, por isso funciona em qualquer alojamento. Na Vercel:
+O repositório está ligado à Vercel: cada push para `main` publica em
+[defimind.tech](https://defimind.tech). Não é preciso correr nada à mão.
 
-```bash
-npx vercel --prod
-```
+## Idioma
 
-O `vercel.json` já traz cabeçalhos de segurança (HSTS, `nosniff`, `X-Frame-Options`) e
-cache longo para os ficheiros em `assets/`.
+A página está **só em inglês**. O público são programadores que integram agentes, e esse
+mercado lê inglês. O ficheiro `i18n.js` da versão anterior foi removido: os 268 textos que
+tinha descreviam o produto antigo e nenhum servia.
 
-## Idiomas
-
-A página fala **português, inglês e espanhol**. O idioma é escolhido a partir de
-`navigator.language`; se o país não estiver coberto, entra em inglês. Quem carregar no
-selector fica com essa escolha guardada e ela passa a ganhar à detecção automática.
-
-O português está escrito directamente no `index.html` e serve de original. Ao arrancar,
-o `i18n.js` fotografa esse texto para memória e traduz a partir daí, o que permite voltar
-ao português sem recarregar a página.
-
-Para traduzir um texto novo: põe `data-i18n="chave"` no elemento (com o português dentro)
-e acrescenta a mesma chave aos dicionários `en` e `es` em `assets/js/i18n.js`. Para
-atributos, usa `data-i18n-attr="placeholder:chave"`. Textos gerados por JavaScript usam
-`DFM_I18N.t('chave')`.
-
-O `i18n.js` é carregado sem `defer`, de propósito: corre no momento em que o HTML acaba
-de ser lido, antes de a página pintar, para não se ver o português a piscar.
-
-**Por decidir:** o português é o de Portugal ("telemóvel", "levantar"). Como o produto
-tem o Brasil como mercado, pode valer a pena um `pt-BR` separado. É acrescentar um
-dicionário e mapear `pt-BR` na detecção.
+Se um dia fizer sentido voltar a ter idiomas, o padrão anterior está no histórico do git
+(`git show 8ec9910:assets/js/i18n.js`).
 
 ## Cores
 
-A paleta segue a da [Kast](https://www.kast.xyz/crypto-cards): preto puro, branco,
-cinzentos e um único acento verde-menta.
+A paleta sai do próprio logótipo, amostrada pixel a pixel do `logo-mark.png`: o azul do
+"d", o ciano do traço e o azul-noite do fundo.
 
 | Papel | Valor |
 | --- | --- |
-| Fundo | `#000000` |
-| Fundo alternado | `#0a0a0a` |
-| Superfícies (cartões) | `#131313` |
-| Texto principal | `#ffffff` |
-| Texto secundário | `#cccccc` |
-| Texto terciário | `#a8a8aa` |
-| Acento | `#1eba98` |
-| Borda de botão | `#676a79` |
-| Gradiente de título | `#ffffff → #999999` |
+| Fundo | `#030509` |
+| Vidro (painéis) | `rgba(13,18,30,.62)` |
+| Vidro secundário | `rgba(18,24,40,.5)` |
+| Linhas | `rgba(255,255,255,.09)` |
+| Texto principal | `#f3f5fa` |
+| Texto secundário | `#9aa3b6` |
+| Texto terciário | `#626c82` |
+| **Azul da marca** | `#2b8af8` |
+| Azul claro | `#79b6ff` |
+| Azul escuro | `#1763c9` |
+| Ciano | `#1ad7ea` |
+| Aviso | `#e8b45c` |
+| Recusa | `#e8756b` |
 
-Está tudo em tokens no topo de `styles.css`. Trocar o acento é mudar `--brand-500` e as
-ocorrências de `rgba(30,186,152,…)`.
+Está tudo em tokens no topo de `styles.css`. O degradê dos números, dos destaques e do
+botão principal é `--grad`, que vai do azul da marca ao ciano.
 
-**Nota de contraste:** o botão principal é branco sobre verde, tal como na Kast, e isso
-dá 2,46:1. Fica abaixo do mínimo das normas de acessibilidade (4,5:1). Passar o texto do
-botão para escuro (`#04120e`) sobe para cerca de 7:1 sem mexer no verde.
+As cores do fundo animado estão em `main.js`, no array `strands`, em RGB sem `#` porque
+são interpoladas com transparência variável.
 
-## Moeda
+**Contraste do botão principal:** texto `#02142b` sobre o degradê dá cerca de 5,4:1 na
+ponta azul e 10,5:1 na ponta ciano. Passa o mínimo das normas (4,5:1). Não pôr texto
+branco em cima — era isso que falhava na versão anterior do site.
 
-O visitante vê os valores na moeda do sítio onde está. A deteção usa `navigator.language`
-e está em `assets/js/main.js`, no mapa `REGION_CURRENCY`. Estão configuradas quatro moedas
-(USD, EUR, BRL, GBP) e o USD é o valor por omissão para qualquer região não listada.
+## Desenho
 
-O simulador projeta uma percentagem de crescimento, e o resultado é matematicamente correcto
-em qualquer moeda. Por isso não é preciso taxa de câmbio nenhuma: quem escreve 1000 e escolhe
-BRL está a simular 1000 reais, não a converter dólares.
+Superfícies translúcidas sobre um fundo vivo. As regras são três:
 
-Para acrescentar uma moeda: junta uma entrada em `CURRENCIES`, mapeia os países em
-`REGION_CURRENCY` e acrescenta o botão em `#curPicker` no `index.html`.
+- **O fundo anima-se atrás da página inteira.** O canvas está em `position:fixed` com
+  `z-index:-2`, por baixo de tudo, e por cima dele há um `.bg__scrim` — dois gradientes
+  sobrepostos que escurecem o suficiente para o texto se ler, deixando o topo do ecrã
+  claro para as fitas aparecerem.
+- **Os painéis são `.glass`**: fundo translúcido, borda de 1px a 9% de branco, sombra
+  grande e um risco de luz no topo (`::before`). Nenhum deles usa `backdrop-filter`,
+  de propósito: desfocar por cima de um canvas que se mexe obriga o browser a recompor
+  cada painel a cada frame. Só a barra de navegação, o cartão de pedidos e o telemóvel
+  é que desfocam, porque são três elementos e não vinte.
+- **Cabeçalhos ao centro**, com uma `.chip` em monoespaçado por cima do título.
+
+## Fundo animado
+
+Um canvas com cinco fitas que ondulam devagar, desenhadas em `lighter` (aditivo) para os
+cruzamentos acenderem. Cada fita é traçada quatro vezes, de larga e fraca a estreita e
+brilhante, o que dá o halo sem precisar de blur.
+
+Está **fixo por trás da página toda**, não só do hero, e por isso corre o tempo todo. Três
+travões para isso não pesar:
+
+- **30fps**, travados por tempo dentro do `requestAnimationFrame`. A animação é lenta o
+  bastante para ninguém notar a diferença e é metade do trabalho.
+- **`devicePixelRatio` travado em 1,5**, para não pintar quatro vezes mais pixels do que
+  é preciso num ecrã retina.
+- **Pára quando o separador fica escondido** e nunca arranca com `prefers-reduced-motion`
+  ligado — nesse caso o CSS substitui-o por um gradiente estático.
+
+O canvas tem o tamanho da janela, não o do documento, por isso o custo não cresce com o
+comprimento da página.
+
+## x402
+
+O x402 tem secção própria (`#x402`), logo a seguir aos números, mais um atalho na
+navegação e um chip no hero. A secção tem duas colunas:
+
+- **três passos** — `402` (a API diz o preço), `DFM` (a DeFiMind decide), `200` (pago, e
+  os dados voltam);
+- **um bloco `.wire`** que imita a conversa HTTP real, em monoespaçado colorido. O
+  conteúdo está escrito à mão no HTML com `white-space:pre`, sem JavaScript nenhum.
+
+A Solana aparece como a primeira cadeia (`Launching first` na tabela), no chip do hero,
+na roadmap e numa pergunta das FAQ ("Why Solana first?"). Continua tudo em estado de
+pré-lançamento: "launching" não é "live".
+
+## Calculadora "Your worst day"
+
+Três cursores — limite diário, saldo da carteira quente, valor no cofre — e uma conta:
+
+```
+perda máxima em 24h = limite diário + saldo da carteira quente
+```
+
+Não é uma estimativa. É o tecto que a cadeia impõe, e por isso vale mesmo que o serviço
+seja totalmente comprometido. A percentagem por baixo mostra o que isso representa do
+cofre; se a perda igualar ou passar o cofre, a mensagem muda e sugere baixar o limite.
+
+## Códigos de recusa
+
+Os vinte códigos estão em `main.js`, no objecto `DATA`, divididos em `shared` (12),
+`solana` (4) e `evm` (4). Os separadores trocam a lista sem recarregar nada.
+
+**A confirmar:** os nomes dos códigos foram escritos aqui a partir da descrição do
+comportamento, não lidos do repositório do produto. Antes de o site ir a público vale a
+pena compará-los com o enum real e corrigir os que não baterem certo. O número total (20)
+vem do produto e está também no bloco de números do topo.
+
+## Números do topo
+
+| Número | O que é |
+| --- | --- |
+| 3 | cadeias suportadas no código |
+| 530 | testes automáticos |
+| 24 | cenários de ataque bloqueados em teste |
+| 20 | códigos de recusa |
+| 0 | contratos novos para o utilizador confiar |
+
+Vêm do código do produto, não de produção. A legenda por baixo diz exactamente isso:
+*"Figures from the codebase. Not yet deployed publicly."* Se os números mudarem, mudam-se
+no `index.html` e aqui.
 
 ## Lista de espera (Supabase)
 
-O formulário grava em Supabase. Falta **um passo manual** antes de funcionar: criar a
+> **Neste momento o formulário não está na página.** A secção final — "Give your agent
+> spending power, not your keys" com a caixa de email — foi removida a pedido. A página
+> acaba na FAQ e passa directo ao rodapé, e **não há forma de recolher emails**.
+>
+> O que ficou: o `main.js` ainda traz o bloco do formulário (não faz nada, porque não
+> encontra o `#wlForm`), o `config.js`, o CSS `.cta`/`.wl` e a migração SQL. Repor é colar
+> a secção de volta no `index.html` — está em `git show HEAD:index.html`. Nada na base de
+> dados foi tocado.
+>
+> Os dois botões "Get early access" (barra e hero) também saíram, porque não tinham para
+> onde apontar. O hero ficou com "What is x402?" e "See how it works".
+
+O resto desta secção descreve como o formulário funciona, para quando voltar.
+
+O formulário grava em Supabase. É preciso **um passo manual** antes de funcionar: criar a
 tabela. Abre o *SQL Editor* do projecto, cola o conteúdo de
 `supabase/migrations/0001_waitlist.sql` e executa.
 
@@ -148,15 +226,14 @@ do site, de propósito.
 | **Alterar** uma linha | `401`, negado |
 | **Apagar** uma linha | `401`, negado |
 
-### Cache dos ficheiros
-
-`assets/css` e `assets/js` são servidos com `must-revalidate`, não com `immutable`. Sem
-build que ponha uma impressão digital no nome dos ficheiros, marcá-los como imutáveis
-faria com que uma actualização nunca chegasse a quem já tivesse visitado o site. Só as
-imagens levam cache longa, porque essas não mudam.
+A coluna `lang` aceita `pt`, `en` ou `es`; a página manda sempre `en`.
 
 ### Por fazer
 
+- **Limpar as linhas de teste.** A tabela tem inscrições de teste de sessões anteriores
+  (`t1@`, `t2@`, `directo.…`, `final.…`, `leque.…`, `novo.…`, `captura.…`,
+  `PRODUCAO.…@defimind.test`). Só se apagam pelo painel do Supabase, porque a chave
+  pública não tem direito de `delete` — e é assim que deve ser.
 - **Limitar a cadência.** O Supabase tem limites gerais de API, mas nada impede alguém de
   inserir milhares de emails válidos. Um gatilho que conte inserções por janela de tempo
   resolve.
@@ -166,42 +243,59 @@ imagens levam cache longa, porque essas não mudam.
   browser. Antes do lançamento é preciso a política de privacidade e uma forma de pedir
   a remoção.
 
+## Segurança e cache
+
+O `vercel.json` traz uma CSP apertada: `default-src 'none'`, sem `unsafe-inline` nos
+scripts. O único script inline da página — `document.documentElement.className+=' js';` —
+está autorizado por **hash SHA-256**, não por `unsafe-inline`:
+
+```
+'sha256-5JWz2pFlxEjBn60lOlhminb3At6YloWzeus5DqPU7W8='
+```
+
+Se esse script mudar um único caracter, a CSP deixa de o aceitar e a página fica sem a
+classe `js`. Recalcula-se assim:
+
+```bash
+printf "%s" "document.documentElement.className+=' js';" | openssl dgst -sha256 -binary | openssl base64
+```
+
+É por causa desta CSP que o CSS e o JavaScript vivem em ficheiros próprios em vez de
+estarem embutidos no HTML.
+
+`assets/css` e `assets/js` são servidos com `must-revalidate`, não com `immutable`. Sem
+build que ponha uma impressão digital no nome dos ficheiros, marcá-los como imutáveis
+faria com que uma actualização nunca chegasse a quem já tivesse visitado o site. Só as
+imagens levam cache longa, porque essas não mudam.
+
 ## Antes de ir para o ar
 
-- [ ] Trocar `https://defimind.com/` pelo domínio real nas meta tags do `<head>`
-- [ ] Criar `assets/img/og-image.png` (1200×630) para as partilhas em redes sociais
-- [ ] Ligar o formulário a um backend a sério
-- [ ] Escrever as páginas legais e ligar os quatro links do rodapé
-- [ ] Preencher os links das redes sociais no rodapé (estão a `#`)
-- [ ] Rever as percentagens dos planos com quem trata do enquadramento legal
-
-## Percentagens
-
-As taxas aparecem em cinco sítios e têm de ser mudadas em conjunto:
-
-| Onde | Ficheiro |
-| --- | --- |
-| Cartões dos planos (`data-count-to`) | `index.html` |
-| Botões do simulador (`data-rate`) | `index.html` |
-| Número grande no topo | `index.html` |
-| Tabela comparativa | `index.html` |
-| Cartão dentro do telemóvel | `index.html` |
-| Taxa inicial do simulador (`var rate`) | `assets/js/main.js` |
+- [ ] Criar `assets/img/og-image.png` (1200×630). Neste momento as partilhas usam o
+      `logo-full.png`, que serve mas não está no formato certo
+- [ ] Confirmar os nomes dos códigos de recusa contra o enum do produto
+- [ ] **Decidir como se recolhem contactos.** Sem a secção final a página não tem
+      nenhuma chamada à acção nem forma de alguém deixar o email
+- [ ] Escrever as páginas legais (privacidade, termos) e ligá-las no rodapé
+- [ ] Decidir se há whitepaper e, se houver, acrescentar o link à navegação
+- [ ] Confirmar que o texto do x402 bate certo com a implementação (a ordem exacta do
+      402 → pagamento → repetição do pedido)
+- [ ] Decidir se o repositório do produto fica público e, se ficar, acrescentar o link
 
 ## Notas técnicas
 
-- Fonte Inter via Google Fonts. Os ícones da interface são SVG inline; o logótipo é o PNG
-  original da marca. Não há pedidos a servidores externos além da fonte.
-- O cartão cai e assenta ao entrar no ecrã (1,35s). A sombra de contacto aperta no embate
-  para dar peso. Depois de pousar largamos a animação, senão ela ficaria a mandar no
-  `transform` e o efeito de levantar no hover deixava de funcionar.
-- Animações de entrada com `IntersectionObserver`, desligadas para quem tem
-  `prefers-reduced-motion` activo.
-- Testado sem overflow horizontal a 375px, 1000px, 1136px e 1440px.
-- A navegação passa a menu aos 1120px, porque os sete links ocupam 1071px numa linha.
-  É um breakpoint separado do layout (900px) de propósito: se fossem o mesmo, ou a barra
-  quebrava em duas linhas ou as grelhas colapsavam cedo de mais.
-- Os dois cartões flutuantes do hero só aparecem a partir dos 1280px. Abaixo disso a coluna
-  do telemóvel não tem folga lateral e eles cairiam por cima do texto do ecrã.
+- Fontes Inter, Inter Tight e IBM Plex Mono via Google Fonts. Os ícones são SVG inline.
+  Não há pedidos a servidores externos além das fontes e do Supabase, e a CSP só autoriza
+  esses três destinos.
+- O conteúdo aparece com `IntersectionObserver`, mas só fica escondido de início se o
+  JavaScript correr: o `<script>` inline no `<head>` põe a classe `js` no `<html>` e é
+  essa classe que activa o `opacity:0`. Se o JavaScript falhar, a página aparece inteira
+  em vez de ficar em branco. Há ainda uma rede de segurança por scroll e um temporizador.
+- Testado sem overflow horizontal a 375px e 1440px.
+- A navegação passa a menu aos 1180px. São oito links mais o logótipo, por isso o chip
+  "Pre-launch" só aparece a partir dos 1340px — abaixo disso não há largura e a barra
+  partia em duas linhas. O estado de pré-lançamento está também no hero e no rodapé, por
+  isso nada se perde. É um breakpoint separado do layout (900px) de propósito.
 - Acessibilidade: um único `<h1>`, link de salto, foco visível, menu com `aria-expanded`,
-  tabela comparativa com `<caption>` e cabeçalhos de linha.
+  separadores com `role="tablist"` e `aria-selected`, tabelas com `<caption>`, FAQ em
+  `<details>` nativo (funciona sem JavaScript), e `prefers-reduced-motion` desliga as
+  animações e o fundo.

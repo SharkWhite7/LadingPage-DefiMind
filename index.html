@@ -1,215 +1,136 @@
 <!doctype html>
-<html lang="pt">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<title>DeFiMind · O banco que nunca toca no teu dinheiro</title>
-<meta name="description" content="Poupanças que rendem todos os dias, com a segurança de um banco e uma diferença que muda tudo: a chave é tua. Disponível em todo o mundo, na moeda que usas.">
-<meta name="theme-color" content="#000000">
+<title>DeFiMind · The agent every agent needs</title>
+<meta name="description" content="A security layer between an AI agent and its wallet. x402-native, launching on Solana. Every payment is checked against your policy, test-run before signing, then approved by you or blocked.">
+<meta name="theme-color" content="#030509">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="https://defimind.tech/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DeFiMind">
-<meta property="og:title" content="DeFiMind · O banco que nunca toca no teu dinheiro">
-<meta property="og:description" content="Poupanças que rendem todos os dias, com a segurança de um banco e a chave sempre contigo.">
-<meta property="og:image" content="https://defimind.tech/assets/img/og-image.png">
+<meta property="og:title" content="DeFiMind · The agent every agent needs">
+<meta property="og:description" content="A firewall for autonomous payments. x402-native, launching on Solana. Give your agent spending power, not your keys.">
+<meta property="og:image" content="https://defimind.tech/assets/img/logo-full.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DeFiMind · O banco que nunca toca no teu dinheiro">
-<meta name="twitter:description" content="Poupanças que rendem todos os dias, com a segurança de um banco e a chave sempre contigo.">
-<meta name="twitter:image" content="https://defimind.tech/assets/img/og-image.png">
+<meta name="twitter:title" content="DeFiMind · The agent every agent needs">
+<meta name="twitter:description" content="A firewall for autonomous payments. x402-native, launching on Solana.">
+<meta name="twitter:image" content="https://defimind.tech/assets/img/logo-full.png">
 
 <link rel="icon" type="image/png" href="assets/img/logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="assets/css/styles.css">
 <script>document.documentElement.className+=' js';</script>
 </head>
 
 <body>
-<a class="skip-link" href="#conteudo" data-i18n="a11y.skip">Saltar para o conteúdo</a>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ===================== LIVING BACKGROUND ===================== -->
+<div class="bg" aria-hidden="true">
+  <canvas class="aurora-canvas" id="aurora"></canvas>
+  <div class="bg__scrim"></div>
+</div>
 
 <!-- ===================== NAV ===================== -->
 <header class="nav" id="nav">
-  <div class="nav__inner container">
+  <div class="nav__in wrap">
     <a class="brand" href="#top">
       <img class="brand__mark" src="assets/img/logo-mark.png" alt="" width="149" height="143">
       <img class="brand__word" src="assets/img/logo-wordmark.png" alt="DeFiMind" width="418" height="74">
     </a>
 
     <nav class="nav__links" id="navLinks" aria-label="Menu">
-      <a href="#liberdade" data-i18n="nav.freedom">Liberdade</a>
-      <a href="#seguranca" data-i18n="nav.security">Segurança</a>
-      <a href="#como-funciona" data-i18n="nav.how">Como funciona</a>
-      <a href="#planos" data-i18n="nav.plans">Planos</a>
-      <a href="#neurex" data-i18n="nav.neurex">Neurex</a>
-      <a href="#perguntas" data-i18n="nav.faq">Perguntas</a>
-
-      <div class="lang" role="group" aria-label="Idioma" data-i18n-attr="aria-label:a11y.lang">
-        <button type="button" data-lang="pt">PT</button>
-        <button type="button" data-lang="en">EN</button>
-        <button type="button" data-lang="es">ES</button>
-      </div>
+      <a href="#x402">x402</a>
+      <a href="#how">How it works</a>
+      <a href="#security">Security</a>
+      <a href="#approvals">Approvals</a>
+      <a href="#codes">Reject codes</a>
+      <a href="#developers">Developers</a>
+      <a href="#chains">Chains</a>
+      <a href="#faq">FAQ</a>
     </nav>
 
-    <div class="nav__actions">
-      <a class="btn btn--primary btn--sm" href="#lista" data-i18n="nav.cta">Lista de espera</a>
-      <button class="nav__toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+    <div class="nav__right">
+      <span class="nav__pill"><span class="chip__dot"></span>Pre-launch</span>
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </header>
 
-<main id="conteudo">
+<main id="main">
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="top">
-  <div class="hero__bg" aria-hidden="true">
-    <div class="aurora aurora--1"></div>
-    <div class="aurora aurora--2"></div>
-    <div class="aurora aurora--3"></div>
-
-    <svg class="ribbons" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="rb1" x1="0" y1="0" x2="1" y2="0.3">
-          <stop offset="0%"   stop-color="#2484fc" stop-opacity="0"/>
-          <stop offset="35%"  stop-color="#2484fc" stop-opacity=".85"/>
-          <stop offset="62%"  stop-color="#ffffff" stop-opacity=".75"/>
-          <stop offset="100%" stop-color="#2484fc" stop-opacity="0"/>
-        </linearGradient>
-        <linearGradient id="rb2" x1="0" y1="0" x2="1" y2="-0.2">
-          <stop offset="0%"   stop-color="#60a5fa" stop-opacity="0"/>
-          <stop offset="40%"  stop-color="#60a5fa" stop-opacity=".6"/>
-          <stop offset="70%"  stop-color="#ffffff" stop-opacity=".5"/>
-          <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
-        </linearGradient>
-        <linearGradient id="rb3" x1="0" y1="0" x2="1" y2="0.4">
-          <stop offset="0%"   stop-color="#1eba98" stop-opacity="0"/>
-          <stop offset="45%"  stop-color="#1eba98" stop-opacity=".45"/>
-          <stop offset="100%" stop-color="#2484fc" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-
-      <g class="ribbon ribbon--1">
-        <path d="M-200 430 C 180 250, 420 600, 760 400 S 1280 180, 1660 330"
-              fill="none" stroke="url(#rb1)" stroke-width="76" stroke-linecap="round"/>
-      </g>
-      <g class="ribbon ribbon--2">
-        <path d="M-200 560 C 240 420, 520 760, 880 540 S 1340 400, 1660 500"
-              fill="none" stroke="url(#rb2)" stroke-width="52" stroke-linecap="round"/>
-      </g>
-      <g class="ribbon ribbon--3">
-        <path d="M-200 300 C 300 180, 560 440, 900 250 S 1300 100, 1660 220"
-              fill="none" stroke="url(#rb3)" stroke-width="38" stroke-linecap="round"/>
-      </g>
-    </svg>
-
-    <canvas class="particles" id="heroParticles"></canvas>
-    <div class="grid-lines"></div>
-  </div>
-
-  <div class="container hero__inner">
-    <div class="hero__copy">
-      <h1 class="hero__title reveal" data-i18n="hero.title">
-        O banco que <span class="text-gradient">nunca toca</span> no teu dinheiro.
-      </h1>
-
-      <p class="hero__sub reveal" data-delay="2" data-i18n="hero.sub">
-        As tuas poupanças rendem todos os dias, sozinhas, protegidas pela mesma tecnologia
-        que os bancos usam para guardar milhões. A diferença está numa coisa só:
-        a chave é tua e mais ninguém lhe toca.
-      </p>
-
-      <div class="hero__cta reveal" data-delay="3">
-        <a class="btn btn--primary btn--lg" href="#lista">
-          <span data-i18n="hero.cta1">Entrar na lista de espera</span>
-          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5.5 15.5 10 11 14.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a class="btn btn--secondary btn--lg" href="#como-funciona" data-i18n="hero.cta2">Ver como funciona</a>
+  <div class="wrap hero__in">
+    <div>
+      <div class="tags rv">
+        <span class="tag tag--blue"><span class="tag__dot"></span>x402-native</span>
+        <span class="tag">Launching on Solana</span>
       </div>
-
-      <ul class="hero__trust reveal" data-delay="4">
-        <li data-i18n="hero.t1">Sem custos de abertura</li>
-        <li data-i18n="hero.t2">Levantas quando quiseres</li>
-        <li data-i18n="hero.t3">Vês o saldo na tua moeda</li>
-      </ul>
+      <h1 class="rv" data-d="1">The agent <span class="grad">every agent</span> needs.</h1>
+      <p class="hero__sub rv" data-d="2">
+        DeFiMind is the security layer your AI agent plugs into before it can move a cent.
+        Every payment is checked against your rules, test-run before signing, then approved
+        by you on Telegram or blocked. One MCP connection, any agent, any platform.
+      </p>
+      <div class="hero__cta rv" data-d="3">
+        <a class="btn btn--primary" href="#x402">
+          What is x402?
+          <span class="btn__arrow" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><path d="M4 10h11M11 5.5 15.5 10 11 14.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a class="btn btn--ghost" href="#how">See how it works</a>
+      </div>
     </div>
 
-    <div class="hero__visual reveal" data-delay="3">
-      <div class="phone">
-        <div class="phone__glow" aria-hidden="true"></div>
-        <div class="phone__frame">
-          <div class="phone__notch" aria-hidden="true"></div>
-          <div class="phone__screen">
-
-            <div class="app__top">
-              <div>
-                <p class="app__hello" data-i18n="app.hello">Olá, Ana</p>
-                <p class="app__label" data-i18n="app.balance">Saldo total</p>
-              </div>
-              <span class="app__cur-chip" id="appCurChip">USD</span>
+    <div class="rv" data-d="2">
+      <div class="feed glass">
+        <div class="feed__head">
+          <span class="feed__title">payment requests</span>
+          <span class="feed__live">example</span>
+        </div>
+        <div class="feed__body">
+          <div class="req req--ok">
+            <span class="req__icon" aria-hidden="true">✓</span>
+            <div>
+              <p class="req__what">x402 API call</p>
+              <p class="req__why">under your per-payment limit → approved</p>
             </div>
-
-            <p class="app__balance"><span class="app__cur">$</span><span data-count-to="4287" data-decimals="2" data-locale="en-US">0</span></p>
-            <p class="app__delta">
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 12.5V4M4.5 7.5 8 4l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span data-i18n="app.month">+$38.14 este mês</span>
-            </p>
-
-            <div class="app__chart" aria-hidden="true">
-              <svg viewBox="0 0 280 88" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop stop-color="#1eba98" stop-opacity=".38"/>
-                    <stop offset="1" stop-color="#1eba98" stop-opacity="0"/>
-                  </linearGradient>
-                </defs>
-                <path class="chart__area" d="M0 70 C22 66 34 54 52 56 C72 58 82 40 104 41 C126 42 134 52 156 46 C178 40 186 24 210 22 C234 20 250 13 280 8 L280 88 L0 88 Z" fill="url(#areaGrad)"/>
-                <path class="chart__line" d="M0 70 C22 66 34 54 52 56 C72 58 82 40 104 41 C126 42 134 52 156 46 C178 40 186 24 210 22 C234 20 250 13 280 8" fill="none" stroke="#1eba98" stroke-width="2.2" stroke-linecap="round"/>
-              </svg>
-            </div>
-
-            <div class="app__actions">
-              <button type="button" tabindex="-1"><span aria-hidden="true">↓</span><span data-i18n="app.deposit">Depositar</span></button>
-              <button type="button" tabindex="-1"><span aria-hidden="true">↑</span><span data-i18n="app.withdraw">Levantar</span></button>
-              <button type="button" tabindex="-1"><span aria-hidden="true">✦</span><span data-i18n="app.invest">Investir</span></button>
-            </div>
-
-            <div class="app__card">
-              <div class="app__card-row">
-                <span class="dot dot--brand" aria-hidden="true"></span>
-                <span class="app__card-title" data-i18n="app.plan">Plano Equilibrado</span>
-                <span class="app__card-val">24%<small data-i18n="app.year">/ano</small></span>
-              </div>
-              <div class="app__bar" aria-hidden="true"><i style="width:64%"></i></div>
-              <p class="app__card-note" data-i18n="app.since">A render desde 12 de março</p>
-            </div>
-
-            <div class="app__neurex">
-              <span class="app__neurex-avatar" aria-hidden="true">N</span>
-              <p data-i18n="app.neurex">Reequilibrei a tua carteira esta manhã. Poupaste <strong>$4.20</strong> em custos.</p>
-            </div>
-
+            <span class="req__amt">$0.012</span>
           </div>
-        </div>
-      </div>
-
-      <div class="float-card float-card--1" aria-hidden="true">
-        <span class="float-card__icon">🔑</span>
-        <div>
-          <p class="float-card__t" data-i18n="float.k1">A chave é tua</p>
-          <p class="float-card__s" data-i18n="float.k2">Só tu tens acesso</p>
-        </div>
-      </div>
-
-      <div class="float-card float-card--2" aria-hidden="true">
-        <span class="float-card__icon">⚡</span>
-        <div>
-          <p class="float-card__t" data-i18n="float.w1">Levantamento</p>
-          <p class="float-card__s" data-i18n="float.w2">Concluído em 8s</p>
+          <div class="req req--ask">
+            <span class="req__icon" aria-hidden="true">?</span>
+            <div>
+              <p class="req__what">Transfer to a known supplier</p>
+              <p class="req__why">at your threshold → sent to Telegram</p>
+            </div>
+            <span class="req__amt">$250.00</span>
+          </div>
+          <div class="req req--no">
+            <span class="req__icon" aria-hidden="true">✕</span>
+            <div>
+              <p class="req__what">Transfer to an unknown address</p>
+              <p class="req__why">RECIPIENT_NOT_ALLOWED → rejected</p>
+            </div>
+            <span class="req__amt">$4,000</span>
+          </div>
+          <div class="req req--no">
+            <span class="req__icon" aria-hidden="true">✕</span>
+            <div>
+              <p class="req__what">Swap with a hidden token approval</p>
+              <p class="req__why">APPROVAL_DETECTED in test run → rejected</p>
+            </div>
+            <span class="req__amt">$18.40</span>
+          </div>
         </div>
       </div>
     </div>
@@ -217,906 +138,608 @@
 </section>
 
 <!-- ===================== STATS ===================== -->
-<section class="stats" aria-label="Números">
-  <div class="container stats__grid">
-    <div class="stat reveal">
-      <p class="stat__num"><span data-i18n="stats.upto">Até</span> <span data-count-to="40">0</span>%</p>
-      <p class="stat__lbl" data-i18n="stats.l1">rendimento anual estimado no plano mais ousado</p>
+<section class="sec" style="padding-top:0" aria-label="Figures">
+  <div class="wrap">
+    <div class="stats glass rv">
+      <div class="stat">
+        <p class="stat__n">3</p>
+        <p class="stat__l">chains supported in the codebase</p>
+      </div>
+      <div class="stat">
+        <p class="stat__n">530</p>
+        <p class="stat__l">automated tests run on every change</p>
+      </div>
+      <div class="stat">
+        <p class="stat__n">24</p>
+        <p class="stat__l">attack scenarios blocked in testing</p>
+      </div>
+      <div class="stat">
+        <p class="stat__n">20</p>
+        <p class="stat__l">named reasons a payment is refused</p>
+      </div>
+      <div class="stat">
+        <p class="stat__n">0</p>
+        <p class="stat__l">new smart contracts for you to trust</p>
+      </div>
     </div>
-    <div class="stat reveal" data-delay="1">
-      <p class="stat__num">$0</p>
-      <p class="stat__lbl" data-i18n="stats.l2">para abrir e manter a tua conta</p>
-    </div>
-    <div class="stat reveal" data-delay="2">
-      <p class="stat__num">24/7</p>
-      <p class="stat__lbl" data-i18n="stats.l3">a tua carteira acompanhada ao segundo</p>
-    </div>
-    <div class="stat reveal" data-delay="3">
-      <p class="stat__num"><span data-count-to="100">0</span>%</p>
-      <p class="stat__lbl" data-i18n="stats.l4">do teu dinheiro sob o teu controlo</p>
-    </div>
+    <p class="stats__note rv">Figures from the codebase. Not yet deployed publicly.</p>
   </div>
 </section>
 
-<!-- ===================== MARQUEE ===================== -->
-<section class="marquee-wrap" aria-label="Redes">
-  <p class="marquee__label container" data-i18n="marquee.label">Funciona sobre as maiores redes do mundo, sem que precises de saber o que isso significa</p>
-  <div class="marquee">
-    <div class="marquee__track">
-      <span>Ethereum</span><span aria-hidden="true">·</span>
-      <span>Solana</span><span aria-hidden="true">·</span>
-      <span>Polygon</span><span aria-hidden="true">·</span>
-      <span>Base</span><span aria-hidden="true">·</span>
-      <span>Bitcoin</span><span aria-hidden="true">·</span>
-      <span>USDC</span><span aria-hidden="true">·</span>
-      <span>Arbitrum</span><span aria-hidden="true">·</span>
-      <span>Optimism</span><span aria-hidden="true">·</span>
-      <span>Ethereum</span><span aria-hidden="true">·</span>
-      <span>Solana</span><span aria-hidden="true">·</span>
-      <span>Polygon</span><span aria-hidden="true">·</span>
-      <span>Base</span><span aria-hidden="true">·</span>
-      <span>Bitcoin</span><span aria-hidden="true">·</span>
-      <span>USDC</span><span aria-hidden="true">·</span>
-      <span>Arbitrum</span><span aria-hidden="true">·</span>
-      <span>Optimism</span><span aria-hidden="true">·</span>
-    </div>
+<!-- ===================== BUILT ON ===================== -->
+<section class="builton" aria-label="Built on">
+  <div class="wrap builton__in rv">
+    <span class="builton__lbl">Built on</span>
+    <span>x402</span><span>MCP</span><span>Squads v4</span><span>Safe</span>
+    <span>Allowance Module</span><span>USDC</span><span>USDG</span><span>Telegram</span>
   </div>
 </section>
 
-<!-- ===================== LIBERDADE ===================== -->
-<section class="section" id="liberdade">
-  <div class="container">
-    <header class="section__head reveal">
-      <p class="tag" data-i18n="free.tag">A diferença que muda tudo</p>
-      <h2 class="section__title" data-i18n="free.title">O teu dinheiro. <span class="text-gradient">As tuas regras.</span></h2>
-      <p class="section__sub" data-i18n="free.sub">
-        Um banco tradicional guarda o teu dinheiro e depois decide o que podes fazer com ele.
-        No DeFiMind acontece o contrário. O dinheiro fica sempre do teu lado e nós damos-te as
-        ferramentas para o pôr a crescer.
+<!-- ===================== x402 ===================== -->
+<section class="sec" id="x402" style="padding-top:0">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip">The x402 standard</span>
+      <h2 class="h2">Your agent pays <span class="grad">per request.</span> You still set the rules.</h2>
+      <p class="lead">
+        x402 is an open standard that brings HTTP 402 Payment Required back to life: an API
+        answers with its price instead of the data, the caller pays in stablecoin, and the
+        request goes through. No account, no invoice, no monthly plan — just the request and
+        the fraction of a cent it costs.
       </p>
     </header>
 
-    <div class="cards-4">
-      <article class="card reveal">
-        <div class="card__icon">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="4.5" stroke="currentColor" stroke-width="1.7"/><path d="M11.8 11.8 20 20M17 17l2-2M14.5 14.5l2-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    <div class="x4">
+      <div class="x4__steps">
+        <div class="x4__step glass rv">
+          <span class="x4__code x4__code--no">402</span>
+          <div>
+            <h3>The API names its price</h3>
+            <p>Your agent asks for something and gets back a payment requirement instead: how much, in which token, to whom.</p>
+          </div>
         </div>
-        <h3 data-i18n="free.c1t">A chave é tua</h3>
-        <p data-i18n="free.c1d">Quando abres a conta é criada uma chave secreta que fica contigo. Nem a nossa equipa consegue chegar ao teu saldo. Não é uma promessa, é a forma como o sistema foi construído.</p>
-      </article>
-
-      <article class="card reveal" data-delay="1">
-        <div class="card__icon">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M5 21 19 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <div class="x4__step glass rv" data-d="1">
+          <span class="x4__code">DFM</span>
+          <div>
+            <h3>DeFiMind decides</h3>
+            <p>It reads the terms, checks them against your limits and allowlists, and rehearses the payment against the real chain. Anything off and the answer is no — your agent never sees a key either way.</p>
+          </div>
         </div>
-        <h3 data-i18n="free.c2t">Ninguém congela a tua conta</h3>
-        <p data-i18n="free.c2d">Não há gestor de conta a decidir se podes ou não levantar. Sem aprovações, sem justificações, sem chamadas para o balcão. O dinheiro é teu a qualquer hora do dia ou da noite.</p>
-      </article>
-
-      <article class="card reveal" data-delay="2">
-        <div class="card__icon">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M15 8.5 19.5 12 15 15.5M19 12H9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="x4__step glass rv" data-d="2">
+          <span class="x4__code x4__code--ok">200</span>
+          <div>
+            <h3>Paid, and the data comes back</h3>
+            <p>The payment settles on Solana in under a second, the request is retried with proof, and your agent gets the result. Every cent of it lands in the audit log.</p>
+          </div>
         </div>
-        <h3 data-i18n="free.c3t">Entras e sais quando quiseres</h3>
-        <p data-i18n="free.c3d">Sem fidelizações, sem penalizações por levantar cedo, sem papelada. O teu dinheiro está sempre a um toque de distância e chega à tua conta em segundos, não em dias úteis.</p>
-      </article>
+      </div>
 
-      <article class="card reveal" data-delay="3">
-        <div class="card__icon">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/></svg>
+      <div class="wire glass rv" data-d="1">
+        <div class="wire__head">
+          <span>paid_fetch · example</span>
         </div>
-        <h3 data-i18n="free.c4t">Tudo à vista</h3>
-        <p data-i18n="free.c4d">Cada movimento fica registado de forma pública e permanente. Podes conferir para onde foi cada cêntimo, quando quiseres, sem depender da nossa palavra.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== SEGURANÇA ===================== -->
-<section class="section section--alt" id="seguranca">
-  <div class="container">
-    <header class="section__head reveal">
-      <p class="tag" data-i18n="sec.tag">Segurança</p>
-      <h2 class="section__title" data-i18n="sec.title">A proteção de um banco. <span class="text-gradient">Sem o banco.</span></h2>
-      <p class="section__sub" data-i18n="sec.sub">
-        Toda a gente faz a mesma pergunta: se o dinheiro é meu e está comigo, quem o protege?
-        A resposta são camadas de proteção construídas ao milímetro, do tipo que se encontra
-        num cofre de banco, com a diferença de que só tu tens a combinação.
-      </p>
-    </header>
-
-    <div class="cards-3">
-      <article class="card card--sec reveal">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.8 4.5 6v6c0 4.9 3.2 8.3 7.5 9.3 4.3-1 7.5-4.4 7.5-9.3V6L12 2.8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m8.8 12.2 2.2 2.2 4.3-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3 data-i18n="sec.c1t">Cofre encriptado</h3>
-        <p data-i18n="sec.c1d">Os teus dados e a tua chave viajam sempre encriptados de ponta a ponta, com o mesmo grau de proteção que a banca usa para mover milhões. Ninguém intercepta o que passa entre ti e a tua conta.</p>
-      </article>
-
-      <article class="card card--sec reveal" data-delay="1">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10" width="15" height="10" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="15" r="1.4" fill="currentColor"/></svg></div>
-        <h3 data-i18n="sec.c2t">Verificação em dois passos</h3>
-        <p data-i18n="sec.c2d">A palavra-passe sozinha não abre nada. É sempre preciso um segundo código, gerado no teu telemóvel, que muda a cada trinta segundos e não serve a mais ninguém.</p>
-      </article>
-
-      <article class="card card--sec reveal" data-delay="2">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3.2 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3 data-i18n="sec.c3t">Confirmação em três etapas</h3>
-        <p data-i18n="sec.c3d">Movimentos grandes passam por verificação dupla e uma confirmação final tua. Nada sai da tua conta sem que digas expressamente que sim, nem por engano nem por pressa.</p>
-      </article>
-
-      <article class="card card--sec reveal" data-delay="3">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17V9M9.3 17V5M14.7 17v-6M20 17V7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M3 21h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <h3 data-i18n="sec.c4t">Limites definidos por ti</h3>
-        <p data-i18n="sec.c4d">Escolhes um tecto diário para movimentos. Mesmo que alguém chegasse ao teu telemóvel desbloqueado, não conseguiria esvaziar a conta de uma assentada.</p>
-      </article>
-
-      <article class="card card--sec reveal" data-delay="4">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9h17M7.5 13.5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <h3 data-i18n="sec.c5t">Auditado por gente de fora</h3>
-        <p data-i18n="sec.c5d">Empresas independentes especializadas em segurança revêem o nosso código antes de cada atualização importante. Os relatórios são públicos e não tens de acreditar em nós.</p>
-      </article>
-
-      <article class="card card--sec reveal" data-delay="5">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 4 6.5v5.8c0 4.6 3.4 8.1 8 9.2 4.6-1.1 8-4.6 8-9.2V6.5L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12.5h6M12 9.5v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <h3 data-i18n="sec.c6t">Recuperas sempre</h3>
-        <p data-i18n="sec.c6d">Perdeste o telemóvel? A tua frase de recuperação devolve-te a conta inteira em minutos, a partir de qualquer aparelho, sem preencher formulários nem esperar por ninguém.</p>
-      </article>
+        <div class="wire__body">
+<p><span class="wire__out">→ GET</span> /v1/market-data</p>
+<p><span class="wire__in">← 402</span> Payment Required</p>
+<p>  accepts: usdc · solana</p>
+<p>  amount:  0.012 USD</p>
+<p> </p>
+<p><span class="wire__note">· policy</span>   limit 1.00 · ok</p>
+<p><span class="wire__note">· domain</span>   allowlisted · ok</p>
+<p><span class="wire__note">· test run</span> no approvals · ok</p>
+<p> </p>
+<p><span class="wire__out">→ GET</span> /v1/market-data + payment</p>
+<p><span class="wire__ok">← 200</span> OK  <span class="wire__in">· logged</span></p>
+        </div>
+      </div>
     </div>
 
-    <p class="section__foot reveal" data-i18n="sec.foot">
-      Se o DeFiMind desaparecesse amanhã, o teu dinheiro continuaria acessível com a tua frase de recuperação.
-      <strong>Não somos o cofre. Somos a chave inglesa.</strong>
+    <p class="note rv">
+      <strong>Why it matters now:</strong> agents are starting to buy things one call at a time —
+      data, inference, compute. x402 is how they pay for it, and
+      <strong>DeFiMind is the part that decides whether they should.</strong>
     </p>
   </div>
 </section>
 
-<!-- ===================== COMO FUNCIONA ===================== -->
-<section class="section" id="como-funciona">
-  <div class="container">
-    <header class="section__head reveal">
-      <p class="tag" data-i18n="how.tag">Simples de propósito</p>
-      <h2 class="section__title" data-i18n="how.title">Três passos. E já está.</h2>
-      <p class="section__sub" data-i18n="how.sub">Não precisas de saber nada sobre tecnologia. Se sabes usar a aplicação do teu banco, sabes usar o DeFiMind.</p>
-    </header>
-
-    <ol class="steps">
-      <li class="step reveal">
-        <span class="step__n">01</span>
-        <h3 data-i18n="how.s1t">Cria a tua conta</h3>
-        <p data-i18n="how.s1d">Demora menos de dois minutos e só precisas de um email. Mostramos-te uma frase de recuperação: guarda-a bem, é a chave de casa e ninguém ta pode pedir.</p>
-      </li>
-      <li class="step reveal" data-delay="1">
-        <span class="step__n">02</span>
-        <h3 data-i18n="how.s2t">Coloca dinheiro</h3>
-        <p data-i18n="how.s2d">Por cartão, transferência bancária ou o método de pagamento que já usas no teu país. Podes começar com o equivalente a 25 dólares e não há comissão de entrada.</p>
-      </li>
-      <li class="step reveal" data-delay="2">
-        <span class="step__n">03</span>
-        <h3 data-i18n="how.s3t">Escolhe o teu ritmo</h3>
-        <p data-i18n="how.s3d">Três planos, três níveis de risco. A partir daí o DeFiMind trata de tudo, todos os dias, enquanto tu vives a tua vida.</p>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<!-- ===================== MOEDA ===================== -->
-<section class="section section--alt" id="moeda">
-  <div class="container currency">
-    <div class="currency__copy reveal">
-      <p class="tag" data-i18n="cur.tag">Em qualquer lugar do mundo</p>
-      <h2 class="section__title" data-i18n="cur.title">O teu dinheiro, <span class="text-gradient">na tua moeda.</span></h2>
-      <p class="section__sub section__sub--left" data-i18n="cur.sub">
-        Estás no Brasil? Vês reais. Nos Estados Unidos? Dólares. Na Europa? Euros.
-        O DeFiMind mostra tudo na moeda que usas no dia a dia e faz as contas por ti,
-        para nunca teres de converter nada de cabeça.
+<!-- ===================== THE PROBLEM ===================== -->
+<section class="sec">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip chip--plain">The problem</span>
+      <h2 class="h2">An agent that can spend is an agent <span class="grad">that can be drained.</span></h2>
+      <p class="lead">
+        The moment an agent can pay, one bad instruction — a prompt injection, a bug, a leaked
+        key — empties a wallet in seconds. And an agent is a far easier thing to talk into a
+        mistake than a person is.
       </p>
-
-      <ul class="checks">
-        <li data-i18n="cur.k1">O saldo, os ganhos e os custos aparecem sempre na tua moeda</li>
-        <li data-i18n="cur.k2">Mudas de moeda quando quiseres, sem perder histórico</li>
-        <li data-i18n="cur.k3">Entras e sais pelos métodos de pagamento do teu país</li>
-        <li data-i18n="cur.k4">Sem taxas de câmbio escondidas nem margens disfarçadas</li>
-      </ul>
-    </div>
-
-    <div class="currency__visual reveal" data-delay="1">
-      <div class="cur-grid">
-        <div class="cur">
-          <span class="cur__sym" aria-hidden="true">$</span>
-          <p class="cur__country" data-i18n="cur.us">Estados Unidos</p>
-          <p class="cur__val">$4,287.00</p>
-          <p class="cur__code">USD</p>
-        </div>
-        <div class="cur">
-          <span class="cur__sym" aria-hidden="true">R$</span>
-          <p class="cur__country" data-i18n="cur.br">Brasil</p>
-          <p class="cur__val">R$ 23.164,00</p>
-          <p class="cur__code">BRL</p>
-        </div>
-        <div class="cur">
-          <span class="cur__sym" aria-hidden="true">€</span>
-          <p class="cur__country" data-i18n="cur.eu">Europa</p>
-          <p class="cur__val">3 958,00 €</p>
-          <p class="cur__code">EUR</p>
-        </div>
-        <div class="cur">
-          <span class="cur__sym" aria-hidden="true">£</span>
-          <p class="cur__country" data-i18n="cur.gb">Reino Unido</p>
-          <p class="cur__val">£3,387.00</p>
-          <p class="cur__code">GBP</p>
-        </div>
-      </div>
-      <p class="cur__note" data-i18n="cur.note">O mesmo saldo, visto de quatro sítios diferentes do mundo.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== PLANOS ===================== -->
-<section class="section" id="planos">
-  <div class="container">
-    <header class="section__head reveal">
-      <p class="tag" data-i18n="plans.tag">Poupança que trabalha</p>
-      <h2 class="section__title" data-i18n="plans.title">Escolhe quanto <span class="text-gradient">risco</span> queres correr.</h2>
-      <p class="section__sub" data-i18n="plans.sub">Três planos claros. Sem letras pequenas, sem produtos complicados que ninguém percebe. Mudas de plano quando quiseres.</p>
     </header>
 
-    <div class="plans">
-      <article class="plan reveal">
-        <header class="plan__head">
-          <span class="plan__badge plan__badge--safe" data-i18n="plans.r1">Risco baixo</span>
-          <h3 class="plan__name" data-i18n="plans.n1">Seguro</h3>
-          <p class="plan__rate"><span data-count-to="9">0</span><small data-i18n="plans.year">% ao ano</small></p>
-          <p class="plan__tag" data-i18n="plans.t1">Para quem quer dormir descansado.</p>
-        </header>
-        <ul class="plan__list">
-          <li data-i18n="plans.a1">Oscilações muito reduzidas</li>
-          <li data-i18n="plans.daily">Rendimento creditado todos os dias</li>
-          <li data-i18n="plans.min">A partir de $25 ou equivalente</li>
-          <li data-i18n="plans.any">Levantas a qualquer momento</li>
-        </ul>
-        <a class="btn btn--secondary btn--block" href="#lista" data-i18n="plans.pick">Quero este plano</a>
-      </article>
-
-      <article class="plan plan--featured reveal" data-delay="1">
-        <span class="plan__ribbon" data-i18n="plans.popular">Mais escolhido</span>
-        <header class="plan__head">
-          <span class="plan__badge plan__badge--mid" data-i18n="plans.r2">Risco médio</span>
-          <h3 class="plan__name" data-i18n="plans.n2">Equilibrado</h3>
-          <p class="plan__rate"><span data-count-to="24">0</span><small data-i18n="plans.year">% ao ano</small></p>
-          <p class="plan__tag" data-i18n="plans.t2">O ponto certo entre calma e crescimento.</p>
-        </header>
-        <ul class="plan__list">
-          <li data-i18n="plans.a2">Reequilíbrio automático da carteira</li>
-          <li data-i18n="plans.daily">Rendimento creditado todos os dias</li>
-          <li data-i18n="plans.min">A partir de $25 ou equivalente</li>
-          <li data-i18n="plans.any">Levantas a qualquer momento</li>
-        </ul>
-        <a class="btn btn--primary btn--block" href="#lista" data-i18n="plans.pick">Quero este plano</a>
-      </article>
-
-      <article class="plan reveal" data-delay="2">
-        <header class="plan__head">
-          <span class="plan__badge plan__badge--bold" data-i18n="plans.r3">Risco alto</span>
-          <h3 class="plan__name" data-i18n="plans.n3">Ousado</h3>
-          <p class="plan__rate"><span data-count-to="40">0</span><small data-i18n="plans.year">% ao ano</small></p>
-          <p class="plan__tag" data-i18n="plans.t3">Para quem aceita subidas e descidas.</p>
-        </header>
-        <ul class="plan__list">
-          <li data-i18n="plans.a3">Maior exposição a oportunidades</li>
-          <li data-i18n="plans.daily">Rendimento creditado todos os dias</li>
-          <li data-i18n="plans.min">A partir de $25 ou equivalente</li>
-          <li data-i18n="plans.any">Levantas a qualquer momento</li>
-        </ul>
-        <a class="btn btn--secondary btn--block" href="#lista" data-i18n="plans.pick">Quero este plano</a>
-      </article>
-    </div>
-
-    <p class="disclaimer reveal" data-i18n="plans.risk">
-      <strong>Aviso importante:</strong> as percentagens apresentadas são estimativas anuais baseadas em desempenho passado
-      e <strong>não são rendimentos garantidos</strong>. O valor investido pode subir ou descer e podes receber menos do que colocaste,
-      incluindo perder tudo. Quanto maior o rendimento esperado, maior o risco de perda: os planos com percentagens mais altas
-      são também os que mais podem cair. Investe apenas o que estás disposto a arriscar.
+    <p class="note rv" style="max-width:860px;margin-inline:auto">
+      Handing an agent a private key trades all of your funds for a little convenience.
+      <strong>DeFiMind removes that trade-off:</strong> the agent gets spending power, you keep
+      the keys, and there is a hard ceiling on what can go wrong.
     </p>
+  </div>
+</section>
 
-    <div class="calc reveal">
-      <div class="calc__left">
-        <p class="tag" data-i18n="calc.tag">Simulador</p>
-        <h3 class="calc__title" data-i18n="calc.title">Quanto poderia render?</h3>
-        <p class="calc__sub" data-i18n="calc.sub">Mexe nos valores e vê a estimativa. Sem compromisso e sem dar dados nenhuns.</p>
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip chip--plain">How it works</span>
+      <h2 class="h2">Check it, test-run it, <span class="grad">then sign it.</span> Or reject it.</h2>
+      <p class="lead">Every payment takes the same four steps, in the same order. No exceptions, no fast path, no override.</p>
+    </header>
 
-        <div class="field">
-          <div class="field__top">
-            <label for="calcAmount" data-i18n="calc.amount">Valor inicial</label>
-            <output id="calcAmountOut" for="calcAmount">$1,000</output>
-          </div>
-          <input type="range" id="calcAmount" min="25" max="25000" step="25" value="1000">
+    <div class="steps">
+      <article class="step glass rv">
+        <span class="step__ghost" aria-hidden="true">01</span>
+        <p class="step__k">Request</p>
+        <h3>The agent asks</h3>
+        <p>It asks DeFiMind to pay, through an MCP tool or the HTTP API. It holds no keys and no money, so asking is the only thing it can do. The request is written down before anything else happens.</p>
+      </article>
+
+      <article class="step glass rv" data-d="1">
+        <span class="step__ghost" aria-hidden="true">02</span>
+        <p class="step__k">Policy</p>
+        <h3>Your rules decide</h3>
+        <p>The payment is checked against the limits you set for this agent, and only against those. Any doubt is a rejection, never a guess.</p>
+        <div class="step__meta">
+          <span>per-payment limit</span><span>daily limit</span><span>allowed chains</span>
+          <span>allowed tokens</span><span>allowed recipients</span><span>allowed domains</span>
         </div>
+      </article>
 
-        <div class="field">
-          <div class="field__top">
-            <label for="calcYears" data-i18n="calc.during">Durante</label>
-            <output id="calcYearsOut" for="calcYears">5 anos</output>
-          </div>
-          <input type="range" id="calcYears" min="1" max="20" step="1" value="5">
+      <article class="step glass rv" data-d="2">
+        <span class="step__ghost" aria-hidden="true">03</span>
+        <p class="step__k">Test run</p>
+        <h3>Rehearsed before signing</h3>
+        <p>The exact transaction is simulated against the real chain to see what it would actually do — not what the agent says it does. If the effect and the intent do not match, there is never a signature.</p>
+        <div class="step__meta">
+          <span>balance changes</span><span>hidden permissions</span><span>unknown programs</span><span>authority changes</span>
         </div>
+      </article>
 
-        <div class="field">
-          <span class="field__lbl" data-i18n="calc.plan">Plano</span>
-          <div class="segmented" role="radiogroup" aria-label="Plano" data-i18n-attr="aria-label:calc.plan">
-            <button type="button" role="radio" aria-checked="false" data-rate="9" data-i18n="plans.n1">Seguro</button>
-            <button type="button" role="radio" aria-checked="true" class="is-active" data-rate="24" data-i18n="plans.n2">Equilibrado</button>
-            <button type="button" role="radio" aria-checked="false" data-rate="40" data-i18n="plans.n3">Ousado</button>
-          </div>
+      <article class="step glass rv" data-d="3">
+        <span class="step__ghost" aria-hidden="true">04</span>
+        <p class="step__k">Decide</p>
+        <h3>One of three outcomes</h3>
+        <p>Under your threshold it is approved and paid. At or above it, it stops and waits for you on Telegram. Breaking a rule or failing the test run, it is rejected outright. Whichever it is, the decision and the reason go into the audit log.</p>
+      </article>
+    </div>
+
+    <p class="note rv">
+      <strong>The rule that matters:</strong> text the agent provides — its stated reason, the URL,
+      an API response — is shown to you, but is never used to make a decision. Decisions use only
+      your policy and the simulated effect. An agent that lies about what it is doing changes nothing.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== MONEY FLOW + CALCULATOR ===================== -->
+<section class="sec" id="security">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip chip--plain">The guarantee</span>
+      <h2 class="h2">Even if our software fails, <span class="grad">your vault holds.</span></h2>
+      <p class="lead">
+        Four layers, each one narrower than the one above it. The layer that matters is not ours —
+        it is enforced by the blockchain itself, which is what turns a promise into a ceiling.
+      </p>
+    </header>
+
+    <div class="flow-grid">
+      <div class="flow rv">
+        <div class="flow__layer">
+          <p class="flow__tag">Layer 1</p>
+          <h4>Owner multisig vault</h4>
+          <p>Holds the funds. Only you control it. Squads v4 on Solana, Safe on EVM chains.</p>
         </div>
-
-        <div class="field field--last">
-          <span class="field__lbl" data-i18n="calc.currency">Moeda</span>
-          <div class="segmented segmented--4" role="radiogroup" aria-label="Moeda" id="curPicker" data-i18n-attr="aria-label:calc.currency">
-            <button type="button" role="radio" aria-checked="true" class="is-active" data-cur="USD">USD</button>
-            <button type="button" role="radio" aria-checked="false" data-cur="EUR">EUR</button>
-            <button type="button" role="radio" aria-checked="false" data-cur="BRL">BRL</button>
-            <button type="button" role="radio" aria-checked="false" data-cur="GBP">GBP</button>
-          </div>
+        <p class="flow__arrow">refills, never above the daily cap</p>
+        <div class="flow__layer flow__layer--chain">
+          <p class="flow__tag">Layer 2 · onchain</p>
+          <h4>Spend limit</h4>
+          <p>Enforced by the chain, not by our software. This is what makes the ceiling real.</p>
+        </div>
+        <p class="flow__arrow">refill</p>
+        <div class="flow__layer">
+          <p class="flow__tag">Layer 3</p>
+          <h4>Guard hot wallet</h4>
+          <p>A small balance the agent spends from. Its key lives only inside the guard service — never logged, never returned by an API.</p>
+        </div>
+        <p class="flow__arrow">pays after policy, test run and any approval</p>
+        <div class="flow__layer">
+          <p class="flow__tag">Layer 4</p>
+          <h4>Payments</h4>
+          <p>x402 calls and transfers, only to the recipients and domains you allowed.</p>
         </div>
       </div>
 
-      <div class="calc__right">
-        <p class="calc__resultLbl"><span data-i18n="calc.resultA">Valor estimado ao fim de</span> <span id="calcYearsLbl">5</span> <span data-i18n="calc.resultB">anos</span></p>
-        <p class="calc__result" id="calcResult">$2,932</p>
-        <div class="calc__split">
-          <div>
-            <p class="calc__splitLbl" data-i18n="calc.put">Colocaste</p>
-            <p class="calc__splitVal" id="calcPrincipal">$1,000</p>
+      <div class="calc glass rv" data-d="1">
+        <h3>Your worst day</h3>
+        <p class="calc__sub">Move the sliders. This is the most that can be lost in twenty-four hours, even if the guard is fully compromised.</p>
+
+        <div class="field">
+          <div class="field__top">
+            <label for="capIn">Daily cap</label>
+            <output id="capOut" for="capIn">$500</output>
           </div>
-          <div>
-            <p class="calc__splitLbl" data-i18n="calc.earned">Rendeu</p>
-            <p class="calc__splitVal calc__splitVal--pos" id="calcGain">+$1,932</p>
-          </div>
-        </div>
-        <div class="calc__bar" aria-hidden="true">
-          <i class="calc__barFill" id="calcBar" style="width:66%"></i>
+          <input type="range" id="capIn" min="50" max="10000" step="50" value="500">
         </div>
 
-        <dl class="calc__lines">
-          <div>
-            <dt data-i18n="calc.rateLbl">Taxa anual efectiva</dt>
-            <dd id="calcRate">24%</dd>
+        <div class="field">
+          <div class="field__top">
+            <label for="hotIn">Hot wallet balance</label>
+            <output id="hotOut" for="hotIn">$100</output>
           </div>
-          <div>
-            <dt data-i18n="calc.totalPct">Rendimento total no período</dt>
-            <dd id="calcTotalPct">+193,2%</dd>
-          </div>
-          <div>
-            <dt data-i18n="calc.fees">Comissão de 1,3% à entrada e à saída</dt>
-            <dd id="calcFees">−75,73 €</dd>
-          </div>
-          <div class="calc__lines-net">
-            <dt data-i18n="calc.net">Valor líquido estimado</dt>
-            <dd id="calcNet">2 855,90 €</dd>
-          </div>
-        </dl>
+          <input type="range" id="hotIn" min="10" max="2000" step="10" value="100">
+        </div>
 
-        <details class="calc__years">
-          <summary data-i18n="calc.yearByYear">Ver as contas ano a ano</summary>
-          <div class="calc__yearsBox">
-            <table class="calc__table">
-              <thead>
-                <tr>
-                  <th scope="col" data-i18n="calc.thYear">Ano</th>
-                  <th scope="col" data-i18n="calc.thStart">No início</th>
-                  <th scope="col" data-i18n="calc.thEarned">Rendeu</th>
-                  <th scope="col" data-i18n="calc.thEnd">No fim</th>
-                </tr>
-              </thead>
-              <tbody id="calcTableBody"></tbody>
-            </table>
+        <div class="field">
+          <div class="field__top">
+            <label for="vaultIn">Vault holdings</label>
+            <output id="vaultOut" for="vaultIn">$50,000</output>
           </div>
-        </details>
+          <input type="range" id="vaultIn" min="1000" max="500000" step="1000" value="50000">
+        </div>
 
-        <p class="calc__note" data-i18n="calc.note">Juros compostos sobre a taxa anual efectiva, capitalizados uma vez por ano. Estimativa para efeitos ilustrativos: não é aconselhamento financeiro nem garantia de rendimento.</p>
+        <div class="calc__out">
+          <p class="calc__lbl">Maximum loss in one day</p>
+          <p class="calc__big" id="maxLoss">$600</p>
+          <p class="calc__eq" id="maxEq">daily cap $500 + hot wallet $100</p>
+          <p class="calc__note" id="maxPct">That is 1.2% of the vault.</p>
+        </div>
       </div>
+    </div>
+
+    <div class="grid3" style="margin-top:34px">
+      <article class="card glass rv">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.8 4.5 6v6c0 4.9 3.2 8.3 7.5 9.3 4.3-1 7.5-4.4 7.5-9.3V6L12 2.8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m8.8 12.2 2.2 2.2 4.3-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Policy engine</h3>
+        <p>A new agent starts at deny-all — it can spend nothing until you allow it. Limits, allowlists and the approval threshold are yours to set, and only yours to change.</p>
+      </article>
+      <article class="card glass rv" data-d="1">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="18" cy="17" r="3" stroke="currentColor" stroke-width="1.7"/></svg></div>
+        <h3>Pre-sign test run</h3>
+        <p>The transaction is rehearsed against the real chain before a signature exists. Balance changes, permission grants and unknown programs all come out in the rehearsal, where they are harmless.</p>
+      </article>
+      <article class="card glass rv" data-d="2">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 5 2.5 11.5l7 2.5 2.5 7L21 5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9.5 14 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+        <h3>Telegram approvals</h3>
+        <p>Anything at or above your threshold waits for you, with a plain summary of what the transaction will actually do. No answer within ten minutes and nothing is paid.</p>
+      </article>
+      <article class="card glass rv">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Kill switch</h3>
+        <p>One command pauses every agent at once and prepares, for each chain, the transaction that sets the spend limit to zero. You sign it and the vault is sealed.</p>
+      </article>
+      <article class="card glass rv" data-d="1">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+        <h3>Onchain cap</h3>
+        <p>Built on an already-audited, already-deployed primitive — the Squads Spending Limit and the Safe Allowance Module. We deploy no contracts of our own, so there is nothing new for you to trust.</p>
+      </article>
+      <article class="card glass rv" data-d="2">
+        <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M8 8.5h8M8 12h8M8 15.5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+        <h3>Audit log</h3>
+        <p>Every request, every decision and the reason behind it. Approved, asked or rejected — all of it written down and readable afterwards, in order.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ===================== NEUREX ===================== -->
-<section class="section section--alt" id="neurex">
-  <div class="container neurex">
-    <div class="neurex__copy reveal">
-      <p class="tag" data-i18n="nx.tag">Conhece o Neurex</p>
-      <h2 class="section__title" data-i18n="nx.title">Um consultor financeiro só teu. <span class="text-gradient">Sem custar nada.</span></h2>
-      <p class="section__sub section__sub--left" data-i18n="nx.sub">
-        O Neurex é a inteligência do DeFiMind. Acompanha a tua carteira 24 horas por dia,
-        ajusta o que é preciso ajustar e explica tudo como se estivesses a falar com um amigo
-        que percebe do assunto.
+<!-- ===================== TELEGRAM APPROVALS ===================== -->
+<section class="sec" id="approvals">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip chip--plain">Human approval</span>
+      <h2 class="h2">The big ones <span class="grad">wait for you.</span></h2>
+      <p class="lead">
+        You set the threshold. Anything at or above it stops and asks, with a summary written in
+        plain language — not the agent's explanation of itself, but what the transaction would
+        actually do on the chain.
       </p>
+    </header>
 
-      <ul class="checks">
-        <li data-i18n="nx.k1">Pergunta o que quiseres, na tua língua e à tua maneira</li>
-        <li data-i18n="nx.k2">Explica cada decisão em palavras simples, sem termos técnicos</li>
-        <li data-i18n="nx.k3">Vigia o mercado enquanto dormes e aproveita os melhores momentos</li>
-        <li data-i18n="nx.k4">Pede-te sempre autorização antes de qualquer movimento grande</li>
-        <li data-i18n="nx.k5">Poupa-te dinheiro escolhendo as alturas mais baratas para agir</li>
+    <div class="tg-grid">
+      <ul class="checks rv">
+        <li>An approval is redeemed once, for exactly that chain, token, amount, recipient and domain</li>
+        <li>It expires after ten minutes, so silence means nothing is paid</li>
+        <li>Every message is cryptographically signed; replayed or stale events are refused</li>
+        <li>One command pauses every agent at once, on every chain</li>
+        <li>The default answer, in every ambiguous case, is no</li>
       </ul>
 
-      <a class="btn btn--primary" href="#lista" data-i18n="nx.cta">Quero conhecer o Neurex</a>
-    </div>
+      <div class="rv" data-d="1">
+        <div class="phone glass">
+          <div class="phone__scr">
+            <div class="tg__bar">
+              <span class="tg__ava" aria-hidden="true">D</span>
+              <div>
+                <p class="tg__name">DeFiMind</p>
+                <p class="tg__sub">approval required</p>
+              </div>
+            </div>
 
-    <div class="neurex__chat reveal" data-delay="1">
-      <div class="chat">
-        <div class="chat__head">
-          <span class="chat__avatar" aria-hidden="true">N</span>
-          <div>
-            <p class="chat__name">Neurex</p>
-            <p class="chat__status"><span class="dot dot--live" aria-hidden="true"></span><span data-i18n="nx.online">sempre disponível</span></p>
-          </div>
-        </div>
+            <div class="tg__msg">
+              <p class="tg__h">Payment waiting for you</p>
+              <div class="tg__row"><span>Amount</span><span>250.00 USDC</span></div>
+              <div class="tg__row"><span>To</span><span>supplier.example</span></div>
+              <div class="tg__row"><span>Chain</span><span>Solana</span></div>
+              <div class="tg__row"><span>Agent</span><span>ops-agent-01</span></div>
+              <p class="tg__sim">Test run: moves 250.00 USDC out. No permission grants, no authority changes, no unknown programs.</p>
+            </div>
 
-        <div class="chat__body">
-          <div class="bubble bubble--user" data-i18n="nx.m1">Tenho $500 parados. Vale a pena investir?</div>
-          <div class="bubble bubble--bot" data-i18n="nx.m2">
-            Vale, sim. Mas primeiro deixa-me perguntar uma coisa: precisas deste dinheiro nos próximos 12 meses?
+            <div class="tg__btns">
+              <div class="tg__btn tg__btn--ok">Approve</div>
+              <div class="tg__btn tg__btn--no">Reject</div>
+            </div>
+            <p class="tg__timer">expires in 9:41 — no answer means no payment</p>
           </div>
-          <div class="bubble bubble--user" data-i18n="nx.m3">Não, é dinheiro que tenho de lado.</div>
-          <div class="bubble bubble--bot" data-i18n="nx.m4">
-            Perfeito. Nesse caso sugeria o plano <strong>Equilibrado</strong>. Pensa nisto como plantar uma árvore:
-            quanto mais tempo a deixares crescer, mais sombra te dá. Queres que te mostre a simulação?
-          </div>
-          <div class="bubble bubble--typing" aria-hidden="true"><i></i><i></i><i></i></div>
-        </div>
-
-        <div class="chat__input" aria-hidden="true">
-          <span data-i18n="nx.placeholder">Escreve a tua pergunta…</span>
-          <button type="button" tabindex="-1" aria-label="Enviar">
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== CARTÕES ===================== -->
-<section class="section" id="cartao">
-  <div class="container">
-    <header class="section__head reveal">
-      <p class="tag" data-i18n="card.tag">Cartões DeFiMind</p>
-      <h2 class="section__title" data-i18n="card.title">Quatro acabamentos. <span class="text-gradient">Uma só conta.</span></h2>
-      <p class="section__sub" data-i18n="card.sub">
-        Todos em metal, todos com a mesma conta por trás. As tuas poupanças continuam a render
-        até ao segundo em que pagas, do supermercado à outra ponta do mundo.
+<!-- ===================== REJECT CODES ===================== -->
+<section class="sec" id="codes">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip chip--plain">Reject codes</span>
+      <h2 class="h2">Twenty named reasons <span class="grad">to say no.</span></h2>
+      <p class="lead">
+        Default deny: any doubt while parsing a transaction is a rejection, not a best guess.
+        Every refusal carries a name and a reason, so you always know exactly why something did
+        not happen.
       </p>
     </header>
 
-    <div class="card-fan">
-      <div class="card-item" style="--fan-rot:-15.5deg">
-        <div class="ccard-stage" style="--drop-delay:0s">
-          <div class="ccard-shadow" aria-hidden="true"></div>
-          <div class="ccard ccard--prata">
-            <svg class="ccard__frame" viewBox="0 0 400 252" aria-hidden="true">
-              <g fill="none" stroke="currentColor" stroke-width=".9">
-                <rect x="9.5" y="9.5" width="381" height="233" rx="13"/>
-                <rect x="15.5" y="15.5" width="369" height="221" rx="9"/>
-              </g>
-              <rect x="12.5" y="12.5" width="375" height="227" rx="11" fill="none"
-                    stroke="currentColor" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="1 3.4"/>
-              <g fill="currentColor">
-                <path d="M25 12.5 28.5 16 25 19.5 21.5 16Z"/>
-                <path d="M375 12.5 378.5 16 375 19.5 371.5 16Z"/>
-                <path d="M25 232.5 28.5 236 25 239.5 21.5 236Z"/>
-                <path d="M375 232.5 378.5 236 375 239.5 371.5 236Z"/>
-              </g>
-            </svg>
-
-            <p class="ccard__brand">DEFIMIND</p>
-            <div class="ccard__chip" aria-hidden="true"></div>
-            <p class="ccard__digits">4417</p>
-
-            <div class="ccard__medallion">
-              <img src="assets/img/logo-mark.png" alt="" width="149" height="143">
-            </div>
-
-            <div class="ccard__ribbon" aria-hidden="true"><span data-i18n="card.member">MEMBRO DESDE</span></div>
-            <p class="ccard__since">26</p>
-            <p class="ccard__name" data-i18n="card.holder">O TEU NOME AQUI</p>
-
-            <div class="ccard__spec" aria-hidden="true"></div>
-            <div class="ccard__texture" aria-hidden="true"></div>
-            <div class="ccard__sheen" aria-hidden="true"></div>
-          </div>
-        </div>
-        <div class="card-item__meta">
-          <p class="card-item__name" data-i18n="card.f1n">Prata</p>
-          <p class="card-item__desc" data-i18n="card.f1d">Aço escovado, sóbrio e leve. O primeiro da linha.</p>
-        </div>
-      </div>
-
-      <div class="card-item" style="--fan-rot:-5.2deg">
-        <div class="ccard-stage" style="--drop-delay:.12s">
-          <div class="ccard-shadow" aria-hidden="true"></div>
-          <div class="ccard ccard--ouro">
-            <svg class="ccard__frame" viewBox="0 0 400 252" aria-hidden="true">
-              <g fill="none" stroke="currentColor" stroke-width=".9">
-                <rect x="9.5" y="9.5" width="381" height="233" rx="13"/>
-                <rect x="15.5" y="15.5" width="369" height="221" rx="9"/>
-              </g>
-              <rect x="12.5" y="12.5" width="375" height="227" rx="11" fill="none"
-                    stroke="currentColor" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="1 3.4"/>
-              <g fill="currentColor">
-                <path d="M25 12.5 28.5 16 25 19.5 21.5 16Z"/>
-                <path d="M375 12.5 378.5 16 375 19.5 371.5 16Z"/>
-                <path d="M25 232.5 28.5 236 25 239.5 21.5 236Z"/>
-                <path d="M375 232.5 378.5 236 375 239.5 371.5 236Z"/>
-              </g>
-            </svg>
-
-            <p class="ccard__brand">DEFIMIND</p>
-            <div class="ccard__chip" aria-hidden="true"></div>
-            <p class="ccard__digits">6208</p>
-
-            <div class="ccard__medallion">
-              <img src="assets/img/logo-mark.png" alt="" width="149" height="143">
-            </div>
-
-            <div class="ccard__ribbon" aria-hidden="true"><span data-i18n="card.member">MEMBRO DESDE</span></div>
-            <p class="ccard__since">26</p>
-            <p class="ccard__name" data-i18n="card.holder">O TEU NOME AQUI</p>
-
-            <div class="ccard__spec" aria-hidden="true"></div>
-            <div class="ccard__texture" aria-hidden="true"></div>
-            <div class="ccard__sheen" aria-hidden="true"></div>
-          </div>
-        </div>
-        <div class="card-item__meta">
-          <p class="card-item__name" data-i18n="card.f2n">Ouro</p>
-          <p class="card-item__desc" data-i18n="card.f2d">Champanhe fosco. Para quem já se instalou.</p>
-        </div>
-      </div>
-
-      <div class="card-item" style="--fan-rot:5.2deg">
-        <div class="ccard-stage" style="--drop-delay:.24s">
-          <div class="ccard-shadow" aria-hidden="true"></div>
-          <div class="ccard ccard--esmeralda">
-            <svg class="ccard__frame" viewBox="0 0 400 252" aria-hidden="true">
-              <g fill="none" stroke="currentColor" stroke-width=".9">
-                <rect x="9.5" y="9.5" width="381" height="233" rx="13"/>
-                <rect x="15.5" y="15.5" width="369" height="221" rx="9"/>
-              </g>
-              <rect x="12.5" y="12.5" width="375" height="227" rx="11" fill="none"
-                    stroke="currentColor" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="1 3.4"/>
-              <g fill="currentColor">
-                <path d="M25 12.5 28.5 16 25 19.5 21.5 16Z"/>
-                <path d="M375 12.5 378.5 16 375 19.5 371.5 16Z"/>
-                <path d="M25 232.5 28.5 236 25 239.5 21.5 236Z"/>
-                <path d="M375 232.5 378.5 236 375 239.5 371.5 236Z"/>
-              </g>
-            </svg>
-
-            <p class="ccard__brand">DEFIMIND</p>
-            <div class="ccard__chip" aria-hidden="true"></div>
-            <p class="ccard__digits">3095</p>
-
-            <div class="ccard__medallion">
-              <img src="assets/img/logo-mark.png" alt="" width="149" height="143">
-            </div>
-
-            <div class="ccard__ribbon" aria-hidden="true"><span data-i18n="card.member">MEMBRO DESDE</span></div>
-            <p class="ccard__since">26</p>
-            <p class="ccard__name" data-i18n="card.holder">O TEU NOME AQUI</p>
-
-            <div class="ccard__spec" aria-hidden="true"></div>
-            <div class="ccard__texture" aria-hidden="true"></div>
-            <div class="ccard__sheen" aria-hidden="true"></div>
-          </div>
-        </div>
-        <div class="card-item__meta">
-          <p class="card-item__name" data-i18n="card.f3n">Esmeralda</p>
-          <p class="card-item__desc" data-i18n="card.f3d">Verde profundo com chip dourado. Edição limitada.</p>
-          <span class="card-item__tag" data-i18n="card.lim">Limitado</span>
-        </div>
-      </div>
-
-      <div class="card-item" style="--fan-rot:15.5deg">
-        <div class="ccard-stage" style="--drop-delay:.36s">
-          <div class="ccard-shadow" aria-hidden="true"></div>
-          <div class="ccard ccard--obsidiana">
-            <svg class="ccard__frame" viewBox="0 0 400 252" aria-hidden="true">
-              <g fill="none" stroke="currentColor" stroke-width=".9">
-                <rect x="9.5" y="9.5" width="381" height="233" rx="13"/>
-                <rect x="15.5" y="15.5" width="369" height="221" rx="9"/>
-              </g>
-              <rect x="12.5" y="12.5" width="375" height="227" rx="11" fill="none"
-                    stroke="currentColor" stroke-opacity=".6" stroke-width="2.4" stroke-dasharray="1 3.4"/>
-              <g fill="currentColor">
-                <path d="M25 12.5 28.5 16 25 19.5 21.5 16Z"/>
-                <path d="M375 12.5 378.5 16 375 19.5 371.5 16Z"/>
-                <path d="M25 232.5 28.5 236 25 239.5 21.5 236Z"/>
-                <path d="M375 232.5 378.5 236 375 239.5 371.5 236Z"/>
-              </g>
-            </svg>
-
-            <p class="ccard__brand">DEFIMIND</p>
-            <div class="ccard__chip" aria-hidden="true"></div>
-            <p class="ccard__digits">7390</p>
-
-            <div class="ccard__medallion">
-              <img src="assets/img/logo-mark.png" alt="" width="149" height="143">
-            </div>
-
-            <div class="ccard__ribbon" aria-hidden="true"><span data-i18n="card.member">MEMBRO DESDE</span></div>
-            <p class="ccard__since">26</p>
-            <p class="ccard__name" data-i18n="card.holder">O TEU NOME AQUI</p>
-
-            <div class="ccard__spec" aria-hidden="true"></div>
-            <div class="ccard__texture" aria-hidden="true"></div>
-            <div class="ccard__sheen" aria-hidden="true"></div>
-          </div>
-        </div>
-        <div class="card-item__meta">
-          <p class="card-item__name" data-i18n="card.f4n">Obsidiana</p>
-          <p class="card-item__desc" data-i18n="card.f4d">Preto absoluto em metal. Só por convite.</p>
-          <span class="card-item__tag" data-i18n="card.inv">Por convite</span>
-        </div>
+    <div class="tabs-wrap rv">
+      <div class="tabs" role="tablist" aria-label="Reject code families">
+        <button type="button" role="tab" aria-selected="true" class="is-on" data-tab="shared">All chains</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="solana">Solana</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="evm">EVM</button>
       </div>
     </div>
-    <p class="card-fan__hint" data-i18n="card.hint">Passa o rato por cima de cada cartão para o veres de perto</p>
 
-    <div class="mini-grid mini-grid--wide reveal">
-      <div class="mini">
-        <span class="mini__icon" aria-hidden="true">🖤</span>
-        <p class="mini__t" data-i18n="card.m1t">Virtual e físico</p>
-        <p class="mini__s" data-i18n="card.m1d">O virtual sai na hora. O físico chega a casa em metal.</p>
-      </div>
-      <div class="mini">
-        <span class="mini__icon" aria-hidden="true">🌍</span>
-        <p class="mini__t" data-i18n="card.m2t">Sem fronteiras</p>
-        <p class="mini__s" data-i18n="card.m2d">Funciona em qualquer país e em qualquer loja que aceite cartão.</p>
-      </div>
-      <div class="mini">
-        <span class="mini__icon" aria-hidden="true">💱</span>
-        <p class="mini__t" data-i18n="card.m3t">Câmbio honesto</p>
-        <p class="mini__s" data-i18n="card.m3d">Pagas ao câmbio real, sem margens escondidas na conversão.</p>
-      </div>
-      <div class="mini">
-        <span class="mini__icon" aria-hidden="true">🎁</span>
-        <p class="mini__t" data-i18n="card.m4t">Devolvemos-te parte</p>
-        <p class="mini__s" data-i18n="card.m4d">Cada compra devolve-te uma fatia em recompensas DMIND.</p>
-      </div>
-    </div>
+    <div class="codes rv" id="codeList"></div>
   </div>
 </section>
 
-
-<!-- ===================== COMPARAÇÃO ===================== -->
-<section class="section section--alt" id="comparacao">
-  <div class="container">
-    <header class="section__head reveal">
-      <p class="tag" data-i18n="cmp.tag">Lado a lado</p>
-      <h2 class="section__title" data-i18n="cmp.title">O que muda em relação ao teu banco.</h2>
+<!-- ===================== DEVELOPERS ===================== -->
+<section class="sec" id="developers">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip chip--plain">Developers</span>
+      <h2 class="h2">Four tools. <span class="grad">One connection.</span></h2>
+      <p class="lead">
+        Your agent connects over MCP, so a single integration works with any agent on any platform.
+        The connector holds no keys and makes no decisions of its own — it only asks.
+      </p>
     </header>
 
-    <div class="table-wrap reveal">
-      <table class="compare">
-        <caption class="sr-only" data-i18n="cmp.caption">Comparação entre um banco tradicional e o DeFiMind</caption>
+    <div class="tblwrap glass rv">
+      <table class="tbl">
+        <caption class="sr-only">The four MCP tools</caption>
+        <thead>
+          <tr><th scope="col">Tool</th><th scope="col">What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="k">paid_fetch</td><td>Call an x402 API. Reads the terms, checks them against your rules, pays only if they pass, and hands back the result.</td></tr>
+          <tr><td class="k">transfer</td><td>Send the chain's dollar to a recipient you approved in advance. Nothing else, nowhere else.</td></tr>
+          <tr><td class="k">get_budget</td><td>What has been spent today, what the limits are, and what the spending wallet is holding.</td></tr>
+          <tr><td class="k">check_intent</td><td>Whether a payment is still waiting for your approval, already approved, or refused.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note rv">
+      You think in dollars; it handles the exact onchain amounts and explains every answer in plain
+      English. Amounts are integers in the token's smallest unit from end to end — a value that
+      would need rounding is refused, never rounded.
+      <strong>Docs and access open with the first release.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ===================== CHAINS ===================== -->
+<section class="sec" id="chains">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip chip--plain">Chains</span>
+      <h2 class="h2">Solana first. <span class="grad">Then everywhere else.</span></h2>
+      <p class="lead">
+        The guard core never imports a chain SDK directly. Each chain sits behind a single adapter,
+        so every chain gets the same policy, the same test run and the same kill switch — and a new
+        chain changes nothing about how the rest behave.
+      </p>
+    </header>
+
+    <div class="tblwrap glass rv">
+      <table class="tbl">
+        <caption class="sr-only">Supported chains</caption>
         <thead>
           <tr>
-            <th scope="col"><span class="sr-only" data-i18n="cmp.feature">Característica</span></th>
-            <th scope="col" data-i18n="cmp.bank">Banco tradicional</th>
-            <th scope="col" class="compare__us">DeFiMind</th>
+            <th scope="col">Chain</th><th scope="col">Vault</th>
+            <th scope="col">Spend limit</th><th scope="col">Asset</th><th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row" data-i18n="cmp.r1">Quem guarda o teu dinheiro</th>
-            <td data-i18n="cmp.r1a">O banco</td>
-            <td class="compare__us"><strong data-i18n="cmp.r1b">Tu, e só tu</strong></td>
+            <td class="name">Solana</td><td>Squads v4</td>
+            <td>Squads Spending Limit</td><td>USDC</td><td><span class="st st--dev">Launching first</span></td>
           </tr>
           <tr>
-            <th scope="row" data-i18n="cmp.r2">Podem bloquear a conta</th>
-            <td data-i18n="cmp.r2a">Sim, sem aviso</td>
-            <td class="compare__us"><strong data-i18n="cmp.r2b">Não é tecnicamente possível</strong></td>
+            <td class="name">Robinhood Chain</td><td>Safe</td>
+            <td>Allowance Module</td><td>USDG (Paxos)</td><td><span class="st st--dev">In development</span></td>
           </tr>
           <tr>
-            <th scope="row" data-i18n="cmp.r3">Rendimento dos depósitos</th>
-            <td data-i18n="cmp.r3a">Perto de zero</td>
-            <td class="compare__us"><strong data-i18n="cmp.r3b">9% a 40% ao ano (estimado)</strong></td>
-          </tr>
-          <tr>
-            <th scope="row" data-i18n="cmp.r4">Tempo de levantamento</th>
-            <td data-i18n="cmp.r4a">1 a 3 dias úteis</td>
-            <td class="compare__us"><strong data-i18n="cmp.r4b">Segundos, a qualquer hora</strong></td>
-          </tr>
-          <tr>
-            <th scope="row" data-i18n="cmp.r5">Custo de manutenção</th>
-            <td data-i18n="cmp.r5a">Comissões mensais</td>
-            <td class="compare__us"><strong>$0</strong></td>
-          </tr>
-          <tr>
-            <th scope="row" data-i18n="cmp.r6">Onde funciona</th>
-            <td data-i18n="cmp.r6a">No país onde abriste</td>
-            <td class="compare__us"><strong data-i18n="cmp.r6b">Em qualquer lugar do mundo</strong></td>
-          </tr>
-          <tr>
-            <th scope="row" data-i18n="cmp.r7">Moeda que vês</th>
-            <td data-i18n="cmp.r7a">A do banco</td>
-            <td class="compare__us"><strong data-i18n="cmp.r7b">A que tu escolheres</strong></td>
-          </tr>
-          <tr>
-            <th scope="row" data-i18n="cmp.r8">Quem decide o futuro do serviço</th>
-            <td data-i18n="cmp.r8a">Accionistas</td>
-            <td class="compare__us"><strong data-i18n="cmp.r8b">Quem usa</strong></td>
+            <td class="name">Base</td><td>Safe</td>
+            <td>Allowance Module</td><td>USDC</td><td><span class="st st--plan">Planned</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="table-note reveal" data-i18n="cmp.note">O DeFiMind não é um banco licenciado nem um depósito garantido. É uma ferramenta que te dá acesso directo ao teu próprio dinheiro, com tudo o que isso tem de bom e de exigente.</p>
+
+    <p class="stats__note rv" style="margin-top:22px">
+      Each chain uses that chain's dollar and one audited vault. Nothing is bridged, nothing is wrapped.
+    </p>
   </div>
 </section>
 
-<!-- ===================== COMUNIDADE ===================== -->
-<section class="section" id="comunidade">
-  <div class="container">
-    <header class="section__head reveal">
-      <p class="tag" data-i18n="comm.tag">Comunidade</p>
-      <h2 class="section__title" data-i18n="comm.title">Quem usa, <span class="text-gradient">decide.</span></h2>
-      <p class="section__sub" data-i18n="comm.sub">Não temos accionistas a exigir lucro trimestral. Temos pessoas, e são elas que dizem para onde vai o DeFiMind.</p>
+<!-- ===================== ROADMAP ===================== -->
+<section class="sec" id="roadmap">
+  <div class="wrap">
+    <header class="head rv">
+      <span class="chip chip--plain">Roadmap</span>
+      <h2 class="h2">Where it stands.</h2>
+      <p class="lead">Honestly, and with nothing marked finished that is not.</p>
     </header>
 
-    <div class="cards-3">
-      <article class="card reveal">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1.1 5.8L12 16.9l-5.3 2.7 1.1-5.8-4.3-4.1 5.9-.8L12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h3 data-i18n="comm.c1t">Ganhas por usares</h3>
-        <p data-i18n="comm.c1d">Depositar, poupar, convidar um amigo, manter a sequência de dias. Tudo conta e tudo te devolve recompensas em DMIND.</p>
+    <div class="road">
+      <article class="phase glass rv">
+        <span class="phase__st phase__st--done">Done</span>
+        <div>
+          <h3>Core stack</h3>
+          <p>Policy engine and HTTP API, MCP server with the four tools, Telegram approvals and the kill switch, plus the test and attack suites that run on every change.</p>
+        </div>
       </article>
-
-      <article class="card reveal" data-delay="1">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 20V10M12 20V4M18 20v-7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div>
-        <h3 data-i18n="comm.c2t">Vantagens a sério</h3>
-        <p data-i18n="comm.c2d">Quem tem DMIND paga menos comissões, recebe mais em cada compra e entra primeiro nas novidades. Não é um brinde, é desconto real.</p>
+      <article class="phase glass rv" data-d="1">
+        <span class="phase__st phase__st--done">Done</span>
+        <div>
+          <h3>Onchain cap</h3>
+          <p>Integration with the audited spend-limit primitives. Spending inside the cap works and one unit over is refused by the chain — verified in the test suite, with the kill path rehearsed.</p>
+        </div>
       </article>
-
-      <article class="card reveal" data-delay="2">
-        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M16.5 6.2a3.2 3.2 0 0 1 0 5.6M18.5 19.5c0-2-.8-3.7-2.2-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <h3 data-i18n="comm.c3t">Votas no que vem a seguir</h3>
-        <p data-i18n="comm.c3d">As grandes decisões, das novas funcionalidades às comissões, são votadas por quem usa a plataforma. Um voto por pessoa que está dentro.</p>
+      <article class="phase glass rv" data-d="2">
+        <span class="phase__st phase__st--now">In progress</span>
+        <div>
+          <h3>Solana launch</h3>
+          <p>Bringing Solana and x402 payments to a first release behind a deliberately low daily cap, raised only after weeks without an incident. Robinhood Chain follows.</p>
+        </div>
+      </article>
+      <article class="phase glass rv" data-d="3">
+        <span class="phase__st phase__st--next">Next</span>
+        <div>
+          <h3>Base, higher caps, bug bounty</h3>
+          <p>Base support, caps raised after clean weeks, and a public bug bounty before the limits go up in earnest.</p>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
 <!-- ===================== FAQ ===================== -->
-<section class="section section--alt" id="perguntas">
-  <div class="container container--narrow">
-    <header class="section__head reveal">
-      <p class="tag" data-i18n="faq.tag">Perguntas</p>
-      <h2 class="section__title" data-i18n="faq.title">O que toda a gente pergunta.</h2>
+<section class="sec" id="faq">
+  <div class="wrap wrap--narrow">
+    <header class="head rv">
+      <span class="chip chip--plain">FAQ</span>
+      <h2 class="h2">The questions that matter.</h2>
     </header>
 
-    <div class="faq reveal">
-      <details class="faq__item">
-        <summary data-i18n="faq.q1">Se não guardam o meu dinheiro, onde é que ele está?</summary>
-        <div class="faq__body"><p data-i18n="faq.a1">Está numa carteira que pertence só a ti, criada no momento em que abres a conta. Nós conseguimos mostrar-te o saldo e sugerir-te o que fazer, mas não conseguimos mexer nele. É a diferença entre o teu contabilista e o teu banco: um aconselha, o outro guarda.</p></div>
+    <div class="faq rv">
+      <details class="faq__i">
+        <summary>Is it live yet?</summary>
+        <div class="faq__b"><p>No. The core is built and tested, but it is not open to the public and nobody is running real money through it. Solana is the first chain we are launching on, and this page will say so the moment the first policy can go live — not before.</p></div>
       </details>
 
-      <details class="faq__item">
-        <summary data-i18n="faq.q2">Isso quer dizer que é menos seguro do que um banco?</summary>
-        <div class="faq__body"><p data-i18n="faq.a2">Pelo contrário. Num banco a tua segurança depende de o banco não falhar. Aqui a proteção está do teu lado: encriptação ponta a ponta, verificação em dois passos, confirmação tripla em movimentos grandes e limites diários definidos por ti. Nós não podemos perder o teu dinheiro porque nunca chegamos a tê-lo.</p></div>
+      <details class="faq__i">
+        <summary>What is x402, exactly?</summary>
+        <div class="faq__b"><p>An open standard that lets a website or API charge a small fee per request. The server answers <code>402 Payment Required</code> with its terms, the caller pays in stablecoin, and the request is retried with proof of payment. DeFiMind sits in the middle of that loop: it reads the terms, checks them against your rules, test-runs the payment, pays only if it passes, and hands the result back to your agent.</p></div>
       </details>
 
-      <details class="faq__item">
-        <summary data-i18n="faq.q3">E se eu perder o telemóvel ou esquecer a palavra-passe?</summary>
-        <div class="faq__body"><p data-i18n="faq.a3">Recuperas tudo com a frase de recuperação que te mostramos no início. Por isso insistimos tanto para a guardares num sítio seguro e fora do telemóvel. É a única coisa que ninguém te pode devolver se a perderes.</p></div>
+      <details class="faq__i">
+        <summary>Why Solana first?</summary>
+        <div class="faq__b"><p>Sub-second settlement and fees small enough that paying a fraction of a cent per API call actually makes sense — which is the whole point of x402. It also has Squads v4, an audited multisig with a spend limit the chain itself enforces, so we do not have to deploy a contract of our own.</p></div>
       </details>
 
-      <details class="faq__item">
-        <summary data-i18n="faq.q4">Em que países funciona?</summary>
-        <div class="faq__body"><p data-i18n="faq.a4">Em praticamente todos. O DeFiMind não depende do sistema bancário de nenhum país em particular, por isso funciona onde quer que tenhas ligação à internet. Os métodos para pôr e tirar dinheiro é que variam conforme o sítio onde estás.</p></div>
+      <details class="faq__i">
+        <summary>Can my agent ever touch the funds in my multisig?</summary>
+        <div class="faq__b"><p>No. The agent never holds a key. DeFiMind holds the key of a small spending wallet, and your vault refills it through a blockchain-enforced limit that can never exceed your daily cap.</p></div>
       </details>
 
-      <details class="faq__item">
-        <summary data-i18n="faq.q5">Em que moeda vejo o meu saldo?</summary>
-        <div class="faq__body"><p data-i18n="faq.a5">Na tua. Se estiveres no Brasil vês reais, nos Estados Unidos vês dólares, na Europa vês euros. Podes trocar de moeda a qualquer momento nas definições e o histórico acompanha a mudança. Por baixo está tudo cotado em dólar, que é a referência internacional.</p></div>
+      <details class="faq__i">
+        <summary>What if DeFiMind itself is compromised?</summary>
+        <div class="faq__b"><p>The cap still holds, because the blockchain enforces it rather than our software. The most that can be taken in a day is your cap plus whatever sits in the spending wallet. The kill switch shuts it off entirely once you sign.</p></div>
       </details>
 
-      <details class="faq__item">
-        <summary data-i18n="faq.q6">Posso perder dinheiro?</summary>
-        <div class="faq__body"><p data-i18n="faq.a6">Sim. Isto não é um depósito a prazo e não há capital garantido. Os valores que mostramos são estimativas com base no passado e o mercado pode descer. O plano Seguro foi desenhado para oscilar muito pouco, mas nenhum plano elimina o risco por completo. Investe apenas o que podes deixar a trabalhar sem precisar dele.</p></div>
+      <details class="faq__i">
+        <summary>Do you deploy your own smart contracts?</summary>
+        <div class="faq__b"><p>No. We use audited, already-deployed vault primitives — Squads on Solana, Safe with the Allowance Module on EVM chains. There is nothing new for you to trust.</p></div>
       </details>
 
-      <details class="faq__item">
-        <summary data-i18n="faq.q7">Quanto custa?</summary>
-        <div class="faq__body"><p data-i18n="faq.a7">Abrir e manter a conta é gratuito. Não há mensalidade nem comissão de entrada ou de saída. Cobramos 1,3% em cada movimento de compra, venda ou investimento e está tudo à vista antes de confirmares seja o que for.</p></div>
+      <details class="faq__i">
+        <summary>Which tokens can an agent spend?</summary>
+        <div class="faq__b"><p>The chain's dollar only — USDC or USDG. Amounts are exact to a millionth of a dollar and never rounded; a value that would need rounding is refused instead.</p></div>
       </details>
 
-      <details class="faq__item">
-        <summary data-i18n="faq.q8">Preciso de perceber alguma coisa de criptomoedas?</summary>
-        <div class="faq__body"><p data-i18n="faq.a8">Não. Essa é precisamente a razão de existirmos. Vês o saldo na tua moeda, vês quanto rendeu e carregas em três botões: depositar, investir, levantar. Toda a parte complicada acontece por baixo, sem te incomodar.</p></div>
+      <details class="faq__i">
+        <summary>Does the agent's explanation affect the decision?</summary>
+        <div class="faq__b"><p>Never. It is shown to you and marked unverified. Decisions use only your policy and the simulated effect of the transaction. An agent that lies about what it is doing changes nothing.</p></div>
       </details>
 
-      <details class="faq__item">
-        <summary data-i18n="faq.q9">Como ganham dinheiro se é tudo gratuito?</summary>
-        <div class="faq__body"><p data-i18n="faq.a9">Com a comissão de 1,3% nos movimentos e com o cartão. Mais nada. Não vendemos os teus dados, não temos publicidade escondida e não ganhamos por te fazer mexer na carteira sem necessidade.</p></div>
+      <details class="faq__i">
+        <summary>What happens if I do not answer an approval?</summary>
+        <div class="faq__b"><p>Nothing is paid. Approvals expire after ten minutes and the default is always no. Silence costs you a missed payment, never money.</p></div>
       </details>
     </div>
-  </div>
-</section>
-
-<!-- ===================== CTA FINAL ===================== -->
-<section class="cta" id="lista">
-  <div class="cta__bg" aria-hidden="true"><div class="orb orb--cta"></div></div>
-  <div class="container container--narrow cta__inner">
-    <h2 class="cta__title reveal" data-i18n="cta.title">Está na hora de o teu dinheiro <span class="text-gradient">trabalhar para ti.</span></h2>
-    <p class="cta__sub reveal" data-delay="1" data-i18n="cta.sub">Entra na lista de espera e sê dos primeiros a abrir conta. Sem compromisso e sem spam, prometido.</p>
-
-    <form class="waitlist reveal" data-delay="2" id="waitlistForm" novalidate>
-      <div class="waitlist__row">
-        <label class="sr-only" for="email" data-i18n="cta.label">O teu email</label>
-        <input type="email" id="email" name="email" placeholder="o.teu@email.com" autocomplete="email" required
-               data-i18n-attr="placeholder:cta.placeholder">
-        <button class="btn btn--primary btn--lg" type="submit" data-i18n="cta.button">Quero entrar</button>
-      </div>
-      <p class="waitlist__msg" id="waitlistMsg" role="status" aria-live="polite"></p>
-      <p class="waitlist__fine" data-i18n="cta.fine">Ao entrares na lista aceitas receber novidades sobre o lançamento. Sais quando quiseres, com um clique.</p>
-    </form>
   </div>
 </section>
 
 </main>
 
 <!-- ===================== FOOTER ===================== -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer__grid">
-      <div class="footer__brand">
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__brand">
         <a class="brand" href="#top">
           <img class="brand__mark" src="assets/img/logo-mark.png" alt="" width="149" height="143">
           <img class="brand__word" src="assets/img/logo-wordmark.png" alt="DeFiMind" width="418" height="74">
         </a>
-        <p class="footer__tagline" data-i18n="foot.tagline">O banco que nunca toca no teu dinheiro. Disponível onde quer que estejas, na moeda que usas.</p>
-        <div class="footer__social">
+        <p class="foot__tag">A security layer between an AI agent and its wallet. x402-native, launching on Solana. The agent gets spending power; you keep the keys.</p>
+        <div class="foot__soc">
           <a href="https://x.com/DefiMind_IA" aria-label="X" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.5 3h3l-6.6 7.5L21.8 21h-6l-4.7-6.1L5.6 21h-3l7-8L2.5 3h6.2l4.3 5.6L17.5 3Zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5Z"/></svg></a>
-          <a href="https://defimind.tech/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.9 8.5v11H3.4v-11h3.5Zm.2-3.4c0 1-.8 1.8-2 1.8s-1.9-.8-1.9-1.8.8-1.8 2-1.8 1.9.8 1.9 1.8Zm13.5 8v6.4h-3.5v-6c0-1.5-.5-2.5-1.9-2.5-1 0-1.6.7-1.9 1.4l-.1 1v6.1H9.7s.1-10 0-11h3.5v1.6c.5-.7 1.3-1.8 3.2-1.8 2.4 0 4.2 1.5 4.2 4.8Z"/></svg></a>
           <a href="https://www.instagram.com/defimind.tech" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 2 .2 2.7.5.7.3 1.3.7 1.9 1.3.6.6 1 1.2 1.3 1.9.3.7.5 1.5.5 2.7.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 2-.5 2.7-.3.7-.7 1.3-1.3 1.9-.6.6-1.2 1-1.9 1.3-.7.3-1.5.5-2.7.5-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-2-.2-2.7-.5-.7-.3-1.3-.7-1.9-1.3-.6-.6-1-1.2-1.3-1.9-.3-.7-.5-1.5-.5-2.7C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-2 .5-2.7.3-.7.7-1.3 1.3-1.9.6-.6 1.2-1 1.9-1.3.7-.3 1.5-.5 2.7-.5C9.9 2.2 10.3 2.2 12 2.2Zm0 2c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1Zm0 3.4a5.4 5.4 0 1 1 0 10.8 5.4 5.4 0 0 1 0-10.8Zm0 8.9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm6.9-9.1a1.3 1.3 0 1 1-2.6 0 1.3 1.3 0 0 1 2.6 0Z"/></svg></a>
         </div>
       </div>
 
-      <nav class="footer__col" aria-label="Produto" data-i18n-attr="aria-label:foot.product">
-        <h3 data-i18n="foot.product">Produto</h3>
-        <a href="#como-funciona" data-i18n="nav.how">Como funciona</a>
-        <a href="#planos" data-i18n="nav.plans">Planos</a>
-        <a href="#neurex" data-i18n="nav.neurex">Neurex</a>
-        <a href="#cartao" data-i18n="foot.card">Cartão</a>
-        <a href="#moeda" data-i18n="foot.currencies">Moedas</a>
+      <nav class="foot__col" aria-label="Product">
+        <h3>Product</h3>
+        <a href="#x402">x402</a>
+        <a href="#how">How it works</a>
+        <a href="#security">Security</a>
+        <a href="#approvals">Approvals</a>
+        <a href="#chains">Chains</a>
+        <a href="#roadmap">Roadmap</a>
       </nav>
 
-      <nav class="footer__col" aria-label="Empresa" data-i18n-attr="aria-label:foot.company">
-        <h3 data-i18n="foot.company">Empresa</h3>
-        <a href="#liberdade" data-i18n="foot.about">Sobre nós</a>
-        <a href="#seguranca" data-i18n="nav.security">Segurança</a>
-        <a href="#perguntas" data-i18n="foot.faq">Perguntas frequentes</a>
-        <a href="#comunidade" data-i18n="comm.tag">Comunidade</a>
-        <a href="#lista" data-i18n="nav.cta">Lista de espera</a>
+      <nav class="foot__col" aria-label="Developers">
+        <h3>Developers</h3>
+        <a href="#developers">MCP tools</a>
+        <a href="#codes">Reject codes</a>
+        <span>Docs — with first release</span>
+        <span>Bug bounty — planned</span>
       </nav>
 
-      <nav class="footer__col" aria-label="Legal" data-i18n-attr="aria-label:foot.legal">
-        <h3 data-i18n="foot.legal">Legal</h3>
-        <a href="#" data-i18n="foot.terms">Termos e condições</a>
-        <a href="#" data-i18n="foot.privacy">Política de privacidade</a>
-        <a href="#" data-i18n="foot.cookies">Política de cookies</a>
-        <a href="#" data-i18n="foot.risk">Aviso de risco</a>
+      <nav class="foot__col" aria-label="Standards">
+        <h3>Standards</h3>
+        <span>x402</span>
+        <span>Model Context Protocol</span>
+        <span>Squads v4</span>
+        <span>Safe · Allowance Module</span>
       </nav>
     </div>
 
-
-    <div class="footer__bottom">
-      <p>© <span data-year>2026</span> DeFiMind. <span data-i18n="foot.rights">Todos os direitos reservados.</span></p>
-      <p data-i18n="foot.worldwide">Disponível em todo o mundo</p>
+    <div class="foot__bot">
+      <p>© <span data-year>2026</span> DeFiMind. All rights reserved.</p>
+      <p>Pre-launch — nothing here is open to the public yet.</p>
     </div>
   </div>
 </footer>
 
 <script src="assets/js/config.js"></script>
-<script src="assets/js/i18n.js"></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
