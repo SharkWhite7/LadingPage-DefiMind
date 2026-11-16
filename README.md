@@ -130,22 +130,34 @@ disponível:
 
     // Set a feature to 'live' only on the day it ships.
     var FEATURES = {
-      plugins: 'soon', screening: 'soon', verified: 'soon', identity: 'soon',
-      escrow: 'soon', trading: 'soon', teams: 'soon', chains: 'soon',
-      platforms: 'soon', drain: 'soon', audit: 'soon', governance: 'soon'
+      s1: 'soon', s2: 'soon', ... s10: 'soon',   // as dez funcionalidades
+      p1: 'soon', ... p5: 'soon'                 // as cinco fases da roadmap
     };
 
-Cada cartão e cada linha da roadmap traz `data-feature="<chave>"`. No arranque, o script
-percorre-os e põe `data-status="soon"` ou `"live"`, trocando o crachá entre **Coming soon**
-(cinzento) e **Live** (ciano), e o marcador da roadmap entre ○ e ✓.
+Cada slot e cada fase traz `data-feature="<chave>"`. No arranque, o script percorre-os e
+põe `data-status="soon"` ou `"live"`, trocando o crachá entre **Coming soon** (cinzento) e
+**Live** (ciano), e actualizando o contador "0 de dez".
 
 Ligar uma funcionalidade é mudar **uma palavra** neste objecto. Nada mais.
 
-A copy dos cartões está escrita no presente, como funcionalidade acabada, para ler bem no
-dia em que ligar. Quem diz se já dá para usar é o crachá, não o texto.
-
 **A falha segura está do lado certo:** o HTML é servido com "Coming soon" e o JavaScript
 só promove para "Live". Se o script falhar, a página pode prometer a menos, nunca a mais.
+
+### Porque é que as chaves não têm nome
+
+**Este repositório é público.** Uma chave com o nome da funcionalidade anunciava a roadmap
+tão alto como o texto anunciava — qualquer pessoa lê o `main.js` servido ao browser. Por isso os slots são `s1`–`s10` e as fases `p1`–`p5`, e **a página não contém o
+título nem a descrição de nenhuma funcionalidade por lançar**.
+
+As barras tapadas da secção são desenhadas em CSS, não são texto escondido: não há nada
+para ler no código-fonte da página.
+
+No dia em que uma funcionalidade sair, escreves nessa altura o título e o texto do cartão,
+e mudas a chave para `'live'`. Até lá, o que existe é o número: dez.
+
+### Mapa dos slots
+
+Não está aqui, de propósito. Guarda-o fora do repositório.
 
 ## Secções
 
@@ -162,26 +174,24 @@ só promove para "Live". Se o script falhar, a página pode prometer a menos, nu
 | Códigos de recusa | `#codes` | 20 códigos, três famílias |
 | Developers | `#developers` | as quatro ferramentas MCP |
 | Chains | `#chains` | Solana, Robinhood Chain, Base |
-| **What's coming** | `#coming` | 10 cartões ligados ao interruptor |
-| **Roadmap** | `#roadmap` | Now + 5 fases, com vistos automáticos |
+| **What's coming** | `#coming` | dez slots tapados e um contador |
+| **Roadmap** | `#roadmap` | Now + 5 fases, só com os títulos |
 | FAQ | `#faq` | nove perguntas |
 
 ## O que ficou de fora, de propósito
 
-O brief que originou esta versão pedia mais três coisas. Nenhuma entrou, e convém que
-fique escrito porquê:
+O brief que originou esta versão pedia mais coisas. Nenhuma entrou, e convém que fique
+escrito porquê:
 
-- **Secção do token ($DMIND), benefícios para detentores, buyback/burn e endereço do
-  contrato.** Fora por instrução directa do dono, repetida três vezes. As chaves
-  `earlyAccess`, `earlySupporter`, `holderRole`, `prioritySupport` e `hostedDiscount` que
-  o brief mandava acrescentar ao objecto também não existem, porque só serviam essa
-  secção. A fase 3 da roadmap chama-se "Trust" em vez de "Token utility", e a fase 2
-  perdeu o item "holder benefits".
-- **Links para o GitHub.** O brief mandava manter `github.com/agent443-dot/<nome antigo>`.
-  Esse nome não pode aparecer em lado nenhum, e um link público punha-o no HTML, no `href`
-  e no Google. Não há botão de GitHub.
-- **Página de whitepaper.** Não existe neste repositório. Um botão para `whitepaper.html`
-  dava 404, por isso não há botão.
+- **Secção do token, benefícios para detentores, buyback/burn e endereço do contrato.**
+  Fora por instrução directa do dono, repetida três vezes.
+- **Links para o GitHub.** O brief mandava manter o URL do repositório do produto. Esse
+  nome não pode aparecer em lado nenhum, e um link público punha-o no HTML, no `href` e no
+  Google. Não há botão de GitHub.
+- **Página de whitepaper.** Não existe neste repositório. Um botão dava 404.
+- **O detalhe das funcionalidades por lançar.** O brief trazia dez cartões com o texto
+  todo escrito, e a roadmap com cada item nomeado. Saiu por instrução do dono: a página
+  diz que são dez e não diz quais.
 
 E uma afirmação foi corrigida em vez de copiada: o brief punha no hero
 *"Public beta · Live on Robinhood Chain and Solana"* e no rodapé *"DefiMind is in public

@@ -12,23 +12,33 @@
   /* ----------------------------------------------------------
      FEATURE STATUS
      Set a feature to 'live' only on the day it ships.
+
+     The slots are deliberately unnamed. This repository is public, so a
+     descriptive key would announce the roadmap just as loudly as the copy
+     would. s1-s10 are the ten unannounced features, p1-p5 the roadmap
+     phases. Write the real title and copy on the day you flip one.
      ---------------------------------------------------------- */
   var FEATURES = {
-    plugins: 'soon', screening: 'soon', verified: 'soon', identity: 'soon',
-    escrow: 'soon', trading: 'soon', teams: 'soon', chains: 'soon',
-    platforms: 'soon', drain: 'soon', audit: 'soon', governance: 'soon'
+    s1: 'soon', s2: 'soon', s3: 'soon', s4: 'soon', s5: 'soon',
+    s6: 'soon', s7: 'soon', s8: 'soon', s9: 'soon', s10: 'soon',
+    p1: 'soon', p2: 'soon', p3: 'soon', p4: 'soon', p5: 'soon'
   };
 
-  /* Every card and every roadmap item carries data-feature="<key>".
+  /* Every slot and every phase carries data-feature="<key>".
      The markup ships as "Coming soon", so a JavaScript failure can only ever
      under-promise, never over-promise. */
   (function featureStatus() {
+    var shipped = 0, slots = 0;
     $$('[data-feature]').forEach(function (el) {
-      var live = FEATURES[el.getAttribute('data-feature')] === 'live';
+      var key = el.getAttribute('data-feature');
+      var live = FEATURES[key] === 'live';
       el.setAttribute('data-status', live ? 'live' : 'soon');
       var badge = $('[data-badge]', el);
       if (badge) badge.textContent = live ? 'Live' : 'Coming soon';
+      if (key.charAt(0) === 's') { slots++; if (live) shipped++; }
     });
+    var n = $('#shippedCount');
+    if (n) n.textContent = String(shipped);
   })();
 
   /* ----------------------------------------------------------
