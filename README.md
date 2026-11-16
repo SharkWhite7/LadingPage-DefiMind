@@ -130,7 +130,8 @@ disponível:
 
     // Set a feature to 'live' only on the day it ships.
     var FEATURES = {
-      s1: 'soon', s2: 'soon', ... s10: 'soon',   // as dez funcionalidades
+      panel: 'soon',                             // já anunciada, por isso tem nome
+      s1: 'soon', s2: 'soon', ... s10: 'soon',   // as dez por anunciar
       p1: 'soon', ... p5: 'soon'                 // as cinco fases da roadmap
     };
 
@@ -155,6 +156,9 @@ para ler no código-fonte da página.
 No dia em que uma funcionalidade sair, escreves nessa altura o título e o texto do cartão,
 e mudas a chave para `'live'`. Até lá, o que existe é o número: dez.
 
+**A regra em duas linhas:** por anunciar leva slot sem nome; já anunciada leva o nome
+verdadeiro, porque já não há nada a esconder. O `panel` é o primeiro caso do segundo tipo.
+
 ### Mapa dos slots
 
 Não está aqui, de propósito. Guarda-o fora do repositório.
@@ -169,6 +173,7 @@ Não está aqui, de propósito. Guarda-o fora do repositório.
 | x402 | `#x402` | 402 → decisão → 200, com a conversa HTTP |
 | Problema | — | o trade-off de dar a chave ao agente |
 | Como funciona | `#how` | os quatro passos |
+| **The DeFiMind panel** | `#panel` | passkeys, notificações, telemóvel desenhado em CSS |
 | Garantia | `#security` | as quatro camadas + calculadora |
 | Aprovações | `#approvals` | o telemóvel com o Telegram |
 | Códigos de recusa | `#codes` | 20 códigos, três famílias |
@@ -192,6 +197,10 @@ escrito porquê:
 - **O detalhe das funcionalidades por lançar.** O brief trazia dez cartões com o texto
   todo escrito, e a roadmap com cada item nomeado. Saiu por instrução do dono: a página
   diz que são dez e não diz quais.
+
+**Excepção:** a secção `#panel` descreve uma funcionalidade por lançar em detalhe, o que
+vai contra a regra acima. Entrou porque foi pedida assim, com a copy toda redigida. Para a
+esconder como as outras, é trocar a secção por um slot e pôr `panel` em `s11`.
 
 E uma afirmação foi corrigida em vez de copiada: o brief punha no hero
 *"Public beta · Live on Robinhood Chain and Solana"* e no rodapé *"DefiMind is in public

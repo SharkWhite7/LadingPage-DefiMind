@@ -485,6 +485,48 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 .st--plan{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--dim)}
 
 /* ============================================================
+   THE PANEL
+   ============================================================ */
+.head__badge{margin-top:22px}
+
+.panel-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center}
+.pcards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.pcard{padding:26px 28px;transition:transform var(--t),border-color var(--t)}
+.pcard:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.pcard h3{font-family:var(--display);font-size:1.0625rem;font-weight:700;letter-spacing:-.025em;margin-bottom:10px}
+.pcard p{font-size:.875rem;color:var(--muted);line-height:1.68}
+
+.panel__note{
+  margin-top:34px;text-align:center;
+  font-size:.875rem;color:var(--dim);line-height:1.7;max-width:62ch;margin-inline:auto;
+}
+
+/* phone: approval screen */
+.pnl__bar{display:flex;align-items:center;gap:9px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.pnl__ava{width:30px;height:30px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:.75rem;font-weight:700;color:#02142b;flex:none}
+.pnl__name{font-size:.8125rem;font-weight:600}
+.pnl__sub{font-family:var(--mono);font-size:.625rem;color:var(--dim)}
+.pnl__amt{
+  font-family:var(--display);font-size:2.125rem;font-weight:800;letter-spacing:-.045em;
+  text-align:center;margin-bottom:20px;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+.pnl__rows{display:flex;flex-direction:column;gap:2px;margin-bottom:22px}
+.pnl__rows > div{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.6875rem;padding:7px 0;border-bottom:1px solid var(--line)}
+.pnl__rows span:first-child{color:var(--dim)}
+.pnl__rows span:last-child{color:var(--ink);text-align:right}
+.pnl__btns{display:flex;flex-direction:column;gap:9px}
+.pnl__btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  text-align:center;padding:13px;border-radius:var(--r-full);
+  font-size:.8125rem;font-weight:600;border:1px solid var(--line);
+}
+.pnl__btn--no{background:rgba(255,255,255,.03);color:var(--muted)}
+.pnl__btn--ok{background:var(--grad);border-color:transparent;color:#02142b;box-shadow:0 8px 24px rgba(43,138,248,.26)}
+.pnl__fp{width:17px;height:17px;flex:none}
+
+/* ============================================================
    HIDDEN SLOTS — "What's coming"
    Nothing names the feature until it ships; the bar is drawn in CSS,
    so there is no title to read in the page source either.
@@ -665,12 +707,13 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 
 @media (max-width:900px){
   .hero{padding:calc(var(--nav-h) + 56px) 0 76px}
-  .hero__in,.flow-grid,.tg-grid,.x4{grid-template-columns:1fr;gap:40px}
+  .hero__in,.flow-grid,.tg-grid,.x4,.panel-grid{grid-template-columns:1fr;gap:40px}
   .sec{padding:76px 0}
   .head{margin-bottom:40px}
   .calc{position:static}
   .steps{grid-template-columns:1fr}
   .locks{grid-template-columns:1fr}
+  .pcards{grid-template-columns:repeat(2,1fr)}
   .codes{grid-template-columns:1fr}
   .foot__grid{grid-template-columns:1fr 1fr;gap:34px}
   .foot__brand{grid-column:1/-1}
@@ -682,7 +725,7 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 @media (max-width:640px){
   .wrap{padding-inline:18px}
   .stats{grid-template-columns:repeat(2,1fr)}
-  .grid3{grid-template-columns:1fr}
+  .grid3,.pcards{grid-template-columns:1fr}
   .hero__cta{flex-direction:column;align-items:stretch}
   .hero__cta .btn{justify-content:space-between;width:100%}
   .nav__right .btn{display:none}

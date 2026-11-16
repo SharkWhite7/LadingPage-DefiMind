@@ -13,12 +13,16 @@
      FEATURE STATUS
      Set a feature to 'live' only on the day it ships.
 
-     The slots are deliberately unnamed. This repository is public, so a
+     Unannounced features get an unnamed slot. This repository is public, so a
      descriptive key would announce the roadmap just as loudly as the copy
-     would. s1-s10 are the ten unannounced features, p1-p5 the roadmap
-     phases. Write the real title and copy on the day you flip one.
+     would. s1-s10 are the ten unannounced features, p1-p5 the roadmap phases.
+     Write the real title and copy on the day you flip one.
+
+     A feature that is already described on the page gets a real name, because
+     there is nothing left to give away.
      ---------------------------------------------------------- */
   var FEATURES = {
+    panel: 'soon',
     s1: 'soon', s2: 'soon', s3: 'soon', s4: 'soon', s5: 'soon',
     s6: 'soon', s7: 'soon', s8: 'soon', s9: 'soon', s10: 'soon',
     p1: 'soon', p2: 'soon', p3: 'soon', p4: 'soon', p5: 'soon'
