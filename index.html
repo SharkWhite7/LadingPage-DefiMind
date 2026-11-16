@@ -49,7 +49,6 @@
       <a href="#x402">x402</a>
       <a href="#how">How it works</a>
       <a href="#security">Security</a>
-      <a href="#approvals">Approvals</a>
       <a href="#codes">Reject codes</a>
       <a href="#developers">Developers</a>
       <a href="#chains">Chains</a>
@@ -81,7 +80,7 @@
       <p class="hero__sub rv" data-d="2">
         AI agents are getting wallets. DeFiMind makes sure they can't empty yours.
         Every payment is checked against your rules, test-run before it is signed, then
-        approved by you on Telegram or blocked. One MCP connection, any agent, any platform.
+        approved by you or blocked. One MCP connection, any agent, any platform.
       </p>
       <div class="hero__cta rv" data-d="3">
         <a class="btn btn--primary" href="#how">
@@ -113,7 +112,7 @@
             <span class="req__icon" aria-hidden="true">?</span>
             <div>
               <p class="req__what">Transfer to a known supplier</p>
-              <p class="req__why">at your threshold → sent to Telegram</p>
+              <p class="req__why">at your threshold → waits for your approval</p>
             </div>
             <span class="req__amt">$250.00</span>
           </div>
@@ -173,7 +172,7 @@
   <div class="wrap builton__in rv">
     <span class="builton__lbl">Built on</span>
     <span>x402</span><span>MCP</span><span>Squads v4</span><span>Safe</span>
-    <span>Allowance Module</span><span>USDC</span><span>USDG</span><span>Telegram</span>
+    <span>Allowance Module</span><span>USDC</span><span>USDG</span><span>Passkeys</span>
   </div>
 </section>
 
@@ -307,7 +306,7 @@
         <span class="step__ghost" aria-hidden="true">04</span>
         <p class="step__k">Decide</p>
         <h3>One of three outcomes</h3>
-        <p>Under your threshold it is approved and paid. At or above it, it stops and waits for you on Telegram. Breaking a rule or failing the test run, it is rejected outright. Whichever it is, the decision and the reason go into the audit log.</p>
+        <p>Under your threshold it is approved and paid. At or above it, it stops and waits for you in the panel. Breaking a rule or failing the test run, it is rejected outright. Whichever it is, the decision and the reason go into the audit log.</p>
       </article>
     </div>
 
@@ -389,9 +388,16 @@
       </div>
     </div>
 
+    <ul class="checks rv">
+      <li>An approval is redeemed once, for exactly that chain, token, amount, recipient and domain</li>
+      <li>It expires after ten minutes, so silence means nothing is paid</li>
+      <li>Every request is cryptographically signed; replayed or stale ones are refused</li>
+      <li>One command pauses every agent at once, on every chain</li>
+      <li>The default answer, in every ambiguous case, is no</li>
+    </ul>
+
     <p class="panel__note rv">
-      Telegram stays available for alerts and the kill switch. Once the panel ships, it is
-      the only thing that can approve a payment.
+      Nothing else can approve a payment. No chat account, no email link, no shared login.
     </p>
   </div>
 </section>
@@ -485,7 +491,7 @@
       </article>
       <article class="card glass rv" data-d="2">
         <div class="card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 5 2.5 11.5l7 2.5 2.5 7L21 5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9.5 14 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <h3>Telegram approvals</h3>
+        <h3>Human approval</h3>
         <p>Anything at or above your threshold waits for you, with a plain summary of what the transaction will actually do. No answer within ten minutes and nothing is paid.</p>
       </article>
       <article class="card glass rv">
@@ -503,60 +509,6 @@
         <h3>Audit log</h3>
         <p>Every request, every decision and the reason behind it. Approved, asked or rejected — all of it written down and readable afterwards, in order.</p>
       </article>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== TELEGRAM APPROVALS ===================== -->
-<section class="sec" id="approvals">
-  <div class="wrap">
-    <header class="head rv">
-      <span class="chip chip--plain">Human approval</span>
-      <h2 class="h2">The big ones <span class="grad">wait for you.</span></h2>
-      <p class="lead">
-        You set the threshold. Anything at or above it stops and asks, with a summary written in
-        plain language — not the agent's explanation of itself, but what the transaction would
-        actually do on the chain.
-      </p>
-    </header>
-
-    <div class="tg-grid">
-      <ul class="checks rv">
-        <li>An approval is redeemed once, for exactly that chain, token, amount, recipient and domain</li>
-        <li>It expires after ten minutes, so silence means nothing is paid</li>
-        <li>Every message is cryptographically signed; replayed or stale events are refused</li>
-        <li>One command pauses every agent at once, on every chain</li>
-        <li>The default answer, in every ambiguous case, is no</li>
-      </ul>
-
-      <div class="rv" data-d="1">
-        <div class="phone glass">
-          <div class="phone__scr">
-            <div class="tg__bar">
-              <span class="tg__ava" aria-hidden="true">D</span>
-              <div>
-                <p class="tg__name">DeFiMind</p>
-                <p class="tg__sub">approval required</p>
-              </div>
-            </div>
-
-            <div class="tg__msg">
-              <p class="tg__h">Payment waiting for you</p>
-              <div class="tg__row"><span>Amount</span><span>250.00 USDC</span></div>
-              <div class="tg__row"><span>To</span><span>supplier.example</span></div>
-              <div class="tg__row"><span>Chain</span><span>Solana</span></div>
-              <div class="tg__row"><span>Agent</span><span>ops-agent-01</span></div>
-              <p class="tg__sim">Test run: moves 250.00 USDC out. No permission grants, no authority changes, no unknown programs.</p>
-            </div>
-
-            <div class="tg__btns">
-              <div class="tg__btn tg__btn--ok">Approve</div>
-              <div class="tg__btn tg__btn--no">Reject</div>
-            </div>
-            <p class="tg__timer">expires in 9:41 — no answer means no payment</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -743,7 +695,7 @@
         <div>
           <h3>The core is built</h3>
           <ul class="ticks">
-            <li class="is-done">Policy engine, MCP server, Telegram approvals and the kill switch</li>
+            <li class="is-done">Policy engine, MCP server, human approvals and the kill switch</li>
             <li class="is-done">Onchain spend limit &mdash; one unit over the cap is refused by the chain</li>
             <li class="is-done">530 automated tests and 24 attack scenarios on every change</li>
             <li>Solana first, then Robinhood Chain</li>
@@ -874,7 +826,6 @@
         <a href="#x402">x402</a>
         <a href="#how">How it works</a>
         <a href="#security">Security</a>
-        <a href="#approvals">Approvals</a>
         <a href="#chains">Chains</a>
         <a href="#coming">What&rsquo;s coming</a>
         <a href="#roadmap">Roadmap</a>

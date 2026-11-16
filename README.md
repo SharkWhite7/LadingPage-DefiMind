@@ -169,19 +169,28 @@ Não está aqui, de propósito. Guarda-o fora do repositório.
 | --- | --- | --- |
 | Hero | `#top` | "The firewall for the agent economy." |
 | Números | — | 3 · 530 · 24 · 20 · 0, do código do produto |
-| Built on | — | x402, MCP, Squads v4, Safe, USDC, USDG, Telegram |
+| Built on | — | x402, MCP, Squads v4, Safe, USDC, USDG, Passkeys |
 | x402 | `#x402` | 402 → decisão → 200, com a conversa HTTP |
 | Problema | — | o trade-off de dar a chave ao agente |
 | Como funciona | `#how` | os quatro passos |
 | **The DeFiMind panel** | `#panel` | passkeys, notificações, telemóvel desenhado em CSS |
 | Garantia | `#security` | as quatro camadas + calculadora |
-| Aprovações | `#approvals` | o telemóvel com o Telegram |
 | Códigos de recusa | `#codes` | 20 códigos, três famílias |
 | Developers | `#developers` | as quatro ferramentas MCP |
 | Chains | `#chains` | Solana, Robinhood Chain, Base |
 | **What's coming** | `#coming` | dez slots tapados e um contador |
 | **Roadmap** | `#roadmap` | Now + 5 fases, só com os títulos |
 | FAQ | `#faq` | nove perguntas |
+
+## Sem Telegram
+
+O Telegram saiu da página inteira, a pedido: a secção de aprovações, o telemóvel com a
+conversa, o chip em "Built on", as menções no hero, nos passos e na roadmap, e as regras
+`.tg__*` do CSS.
+
+As cinco regras de aprovação não se perderam — passaram para dentro da secção `#panel`,
+que é agora o único sítio onde se aprova um pagamento. O link "Approvals" saiu da
+navegação e do rodapé, e a barra ficou com oito links em vez de nove.
 
 ## O que ficou de fora, de propósito
 

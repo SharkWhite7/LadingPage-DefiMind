@@ -403,10 +403,10 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 .card p{font-size:.875rem;color:var(--muted);line-height:1.68}
 
 /* ============================================================
-   TELEGRAM APPROVALS
+   APPROVAL RULES + PHONE
+   The phone is shared with the panel section; the rules sit under it.
    ============================================================ */
-.tg-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
-.checks{display:flex;flex-direction:column;gap:11px}
+.checks{display:flex;flex-direction:column;gap:11px;max-width:840px;margin:36px auto 0}
 .checks li{
   display:flex;align-items:flex-start;gap:13px;
   padding:16px 20px;border-radius:var(--r-md);
@@ -423,21 +423,6 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
 }
 .phone__scr{background:rgba(4,7,14,.9);border-radius:31px;padding:20px 16px;overflow:hidden}
-.tg__bar{display:flex;align-items:center;gap:9px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:16px}
-.tg__ava{width:30px;height:30px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:.75rem;font-weight:700;color:#02142b;flex:none}
-.tg__name{font-size:.8125rem;font-weight:600}
-.tg__sub{font-family:var(--mono);font-size:.625rem;color:var(--dim)}
-.tg__msg{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:var(--r-sm);padding:14px;margin-bottom:12px}
-.tg__h{font-size:.8125rem;font-weight:600;margin-bottom:11px}
-.tg__row{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.6875rem;padding:4px 0}
-.tg__row span:first-child{color:var(--dim)}
-.tg__row span:last-child{color:var(--ink);text-align:right}
-.tg__sim{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:.6875rem;color:var(--blue-lt);font-family:var(--mono);line-height:1.5}
-.tg__btns{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.tg__btn{text-align:center;padding:11px;border-radius:var(--r-sm);font-size:.8125rem;font-weight:600;border:1px solid var(--line)}
-.tg__btn--ok{background:rgba(43,138,248,.18);border-color:rgba(43,138,248,.44);color:var(--blue-lt)}
-.tg__btn--no{background:rgba(232,117,107,.12);border-color:rgba(232,117,107,.32);color:var(--danger)}
-.tg__timer{margin-top:12px;text-align:center;font-family:var(--mono);font-size:.625rem;color:var(--dim)}
 
 /* ============================================================
    REJECT CODES
@@ -707,7 +692,7 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 
 @media (max-width:900px){
   .hero{padding:calc(var(--nav-h) + 56px) 0 76px}
-  .hero__in,.flow-grid,.tg-grid,.x4,.panel-grid{grid-template-columns:1fr;gap:40px}
+  .hero__in,.flow-grid,.x4,.panel-grid{grid-template-columns:1fr;gap:40px}
   .sec{padding:76px 0}
   .head{margin-bottom:40px}
   .calc{position:static}
