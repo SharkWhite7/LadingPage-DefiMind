@@ -1,3 +1,4 @@
+@charset "utf-8";
 /* ============================================================
    DeFiMind — landing page
    Translucent surfaces over a living background.
@@ -484,6 +485,29 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 .st--plan{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--dim)}
 
 /* ============================================================
+   FEATURE CARDS — "What's coming"
+   ============================================================ */
+.feats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.feat{padding:26px 28px;transition:transform var(--t),border-color var(--t)}
+.feat:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.feat__top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:11px}
+.feat h3{font-family:var(--display);font-size:1.125rem;font-weight:700;letter-spacing:-.025em;line-height:1.25}
+.feat p{font-size:.9063rem;color:var(--muted);line-height:1.7}
+
+/* Badge: muted while it is not shipped, bright cyan the day it is. */
+.badge{
+  font-family:var(--mono);font-size:.5625rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;flex:none;
+  padding:5px 11px;border-radius:var(--r-full);margin-top:3px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);
+}
+[data-status="live"] .badge{
+  border-color:rgba(26,215,234,.5);background:rgba(26,215,234,.14);color:var(--cyan);
+  box-shadow:0 0 0 1px rgba(26,215,234,.12),0 6px 22px rgba(26,215,234,.18);
+}
+.feat[data-status="live"]{border-color:rgba(26,215,234,.26)}
+
+/* ============================================================
    ROADMAP
    ============================================================ */
 .road{display:flex;flex-direction:column;gap:14px}
@@ -492,12 +516,20 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 .phase__st{
   font-family:var(--mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;
   padding:5px 11px;border-radius:var(--r-full);white-space:nowrap;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--dim);
 }
-.phase__st--done{background:rgba(43,138,248,.14);border:1px solid rgba(43,138,248,.34);color:var(--blue-lt)}
-.phase__st--now{background:rgba(26,215,234,.12);border:1px solid rgba(26,215,234,.32);color:var(--cyan)}
-.phase__st--next{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--dim)}
-.phase h3{font-family:var(--display);font-size:1.1875rem;font-weight:700;letter-spacing:-.025em;margin-bottom:7px}
+.phase__st--done{background:rgba(43,138,248,.14);border-color:rgba(43,138,248,.34);color:var(--blue-lt)}
+.phase__st--now{background:rgba(26,215,234,.12);border-color:rgba(26,215,234,.32);color:var(--cyan)}
+.phase__st--next{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--dim)}
+.phase h3{font-family:var(--display);font-size:1.1875rem;font-weight:700;letter-spacing:-.025em;margin-bottom:12px}
 .phase p{font-size:.9063rem;color:var(--muted);line-height:1.7}
+
+.ticks{display:flex;flex-direction:column;gap:9px}
+.ticks li{display:flex;align-items:flex-start;gap:11px;font-size:.9063rem;color:var(--muted);line-height:1.6}
+.ticks li::before{content:"○";flex:none;width:1em;text-align:center;font-size:.75rem;line-height:1.75;color:var(--dim)}
+.ticks li.is-done::before{content:"✓";color:var(--blue-lt);font-size:.875rem}
+.ticks li[data-status="live"]::before{content:"✓";color:var(--cyan);font-size:.875rem}
+.ticks li[data-status="live"]{color:var(--ink)}
 
 /* ============================================================
    FAQ
@@ -573,6 +605,12 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 .foot__col a,.foot__col span{font-size:.875rem;color:var(--dim);transition:color var(--t)}
 .foot__col a:hover{color:var(--blue-lt)}
 
+.foot__note{
+  padding-top:24px;border-top:1px solid var(--line);
+  font-size:.8125rem;color:var(--dim);line-height:1.65;max-width:72ch;
+}
+.foot__note + .foot__bot{border-top:0;padding-top:16px}
+
 .foot__bot{
   display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   padding-top:26px;border-top:1px solid var(--line);font-size:.8125rem;color:var(--dim);
@@ -620,6 +658,7 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
   .head{margin-bottom:40px}
   .calc{position:static}
   .steps{grid-template-columns:1fr}
+  .feats{grid-template-columns:1fr}
   .codes{grid-template-columns:1fr}
   .foot__grid{grid-template-columns:1fr 1fr;gap:34px}
   .foot__brand{grid-column:1/-1}
@@ -641,6 +680,8 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
   .tabs button{padding:9px 13px;font-size:.6875rem}
   .phase{grid-template-columns:1fr;gap:14px}
   .phase__st{justify-self:start}
+  .feat__top{flex-direction:column;gap:9px}
+  .badge{margin-top:0}
   .x4__step{grid-template-columns:1fr;gap:12px}
   .x4__code{justify-self:start}
   .cta__in{padding:44px 24px}

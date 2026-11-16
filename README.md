@@ -123,6 +123,70 @@ A Solana aparece como a primeira cadeia (`Launching first` na tabela), no chip d
 na roadmap e numa pergunta das FAQ ("Why Solana first?"). Continua tudo em estado de
 pré-lançamento: "launching" não é "live".
 
+## Interruptor de estados das funcionalidades
+
+No topo do `main.js` vive um objecto, e **só ele** decide o que a página diz estar
+disponível:
+
+    // Set a feature to 'live' only on the day it ships.
+    var FEATURES = {
+      plugins: 'soon', screening: 'soon', verified: 'soon', identity: 'soon',
+      escrow: 'soon', trading: 'soon', teams: 'soon', chains: 'soon',
+      platforms: 'soon', drain: 'soon', audit: 'soon', governance: 'soon'
+    };
+
+Cada cartão e cada linha da roadmap traz `data-feature="<chave>"`. No arranque, o script
+percorre-os e põe `data-status="soon"` ou `"live"`, trocando o crachá entre **Coming soon**
+(cinzento) e **Live** (ciano), e o marcador da roadmap entre ○ e ✓.
+
+Ligar uma funcionalidade é mudar **uma palavra** neste objecto. Nada mais.
+
+A copy dos cartões está escrita no presente, como funcionalidade acabada, para ler bem no
+dia em que ligar. Quem diz se já dá para usar é o crachá, não o texto.
+
+**A falha segura está do lado certo:** o HTML é servido com "Coming soon" e o JavaScript
+só promove para "Live". Se o script falhar, a página pode prometer a menos, nunca a mais.
+
+## Secções
+
+| Secção | id | O que é |
+| --- | --- | --- |
+| Hero | `#top` | "The firewall for the agent economy." |
+| Números | — | 3 · 530 · 24 · 20 · 0, do código do produto |
+| Built on | — | x402, MCP, Squads v4, Safe, USDC, USDG, Telegram |
+| x402 | `#x402` | 402 → decisão → 200, com a conversa HTTP |
+| Problema | — | o trade-off de dar a chave ao agente |
+| Como funciona | `#how` | os quatro passos |
+| Garantia | `#security` | as quatro camadas + calculadora |
+| Aprovações | `#approvals` | o telemóvel com o Telegram |
+| Códigos de recusa | `#codes` | 20 códigos, três famílias |
+| Developers | `#developers` | as quatro ferramentas MCP |
+| Chains | `#chains` | Solana, Robinhood Chain, Base |
+| **What's coming** | `#coming` | 10 cartões ligados ao interruptor |
+| **Roadmap** | `#roadmap` | Now + 5 fases, com vistos automáticos |
+| FAQ | `#faq` | nove perguntas |
+
+## O que ficou de fora, de propósito
+
+O brief que originou esta versão pedia mais três coisas. Nenhuma entrou, e convém que
+fique escrito porquê:
+
+- **Secção do token ($DMIND), benefícios para detentores, buyback/burn e endereço do
+  contrato.** Fora por instrução directa do dono, repetida três vezes. As chaves
+  `earlyAccess`, `earlySupporter`, `holderRole`, `prioritySupport` e `hostedDiscount` que
+  o brief mandava acrescentar ao objecto também não existem, porque só serviam essa
+  secção. A fase 3 da roadmap chama-se "Trust" em vez de "Token utility", e a fase 2
+  perdeu o item "holder benefits".
+- **Links para o GitHub.** O brief mandava manter `github.com/agent443-dot/<nome antigo>`.
+  Esse nome não pode aparecer em lado nenhum, e um link público punha-o no HTML, no `href`
+  e no Google. Não há botão de GitHub.
+- **Página de whitepaper.** Não existe neste repositório. Um botão para `whitepaper.html`
+  dava 404, por isso não há botão.
+
+E uma afirmação foi corrigida em vez de copiada: o brief punha no hero
+*"Public beta · Live on Robinhood Chain and Solana"* e no rodapé *"DefiMind is in public
+beta"*. O produto não está no ar. O pill diz **Coming soon** e o rodapé diz **pre-launch**.
+
 ## Calculadora "Your worst day"
 
 Três cursores — limite diário, saldo da carteira quente, valor no cofre — e uma conta:

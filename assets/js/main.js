@@ -10,6 +10,28 @@
   function $$(sel, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(sel)); }
 
   /* ----------------------------------------------------------
+     FEATURE STATUS
+     Set a feature to 'live' only on the day it ships.
+     ---------------------------------------------------------- */
+  var FEATURES = {
+    plugins: 'soon', screening: 'soon', verified: 'soon', identity: 'soon',
+    escrow: 'soon', trading: 'soon', teams: 'soon', chains: 'soon',
+    platforms: 'soon', drain: 'soon', audit: 'soon', governance: 'soon'
+  };
+
+  /* Every card and every roadmap item carries data-feature="<key>".
+     The markup ships as "Coming soon", so a JavaScript failure can only ever
+     under-promise, never over-promise. */
+  (function featureStatus() {
+    $$('[data-feature]').forEach(function (el) {
+      var live = FEATURES[el.getAttribute('data-feature')] === 'live';
+      el.setAttribute('data-status', live ? 'live' : 'soon');
+      var badge = $('[data-badge]', el);
+      if (badge) badge.textContent = live ? 'Live' : 'Coming soon';
+    });
+  })();
+
+  /* ----------------------------------------------------------
      Footer year
      ---------------------------------------------------------- */
   $$('[data-year]').forEach(function (el) {
