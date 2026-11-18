@@ -23,6 +23,8 @@
      ---------------------------------------------------------- */
   var FEATURES = {
     panel: 'soon',
+    receipts: 'soon', gateway: 'soon', sdk: 'soon',
+    anchoring: 'soon', verifier: 'soon', timeline: 'soon',
     s1: 'soon', s2: 'soon', s3: 'soon', s4: 'soon', s5: 'soon',
     s6: 'soon', s7: 'soon', s8: 'soon', s9: 'soon', s10: 'soon',
     p1: 'soon', p2: 'soon', p3: 'soon', p4: 'soon', p5: 'soon'
@@ -380,6 +382,50 @@
 
     var active = tabs.filter(function (b) { return b.classList.contains('is-on'); })[0] || tabs[0];
     paint(active.getAttribute('data-tab'));
+  })();
+
+  /* ----------------------------------------------------------
+     Copy buttons
+     ---------------------------------------------------------- */
+  (function copyButtons() {
+    $$('[data-copy]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = $(btn.getAttribute('data-copy'));
+        if (!target) return;
+        var text = target.textContent.trim();
+        var label = btn.getAttribute('data-label') || btn.textContent;
+
+        function settle(word) {
+          btn.textContent = word;
+          window.setTimeout(function () { btn.textContent = label; }, 1800);
+        }
+
+        // execCommand is deprecated but still the only path on a page served
+        // over plain http, where navigator.clipboard is not available at all.
+        function fallback() {
+          try {
+            var ta = doc.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '-1000px';
+            doc.body.appendChild(ta);
+            ta.select();
+            doc.execCommand('copy');
+            doc.body.removeChild(ta);
+            settle('Copied');
+          } catch (e) {
+            settle('Press Ctrl+C');
+          }
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { settle('Copied'); }, fallback);
+        } else {
+          fallback();
+        }
+      });
+    });
   })();
 
   /* ----------------------------------------------------------

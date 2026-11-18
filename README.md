@@ -178,6 +178,7 @@ Não está aqui, de propósito. Guarda-o fora do repositório.
 | Códigos de recusa | `#codes` | 20 códigos, três famílias |
 | Developers | `#developers` | as quatro ferramentas MCP |
 | Chains | `#chains` | Solana, Robinhood Chain, Base |
+| **Verified Execution** | `#verified-execution` | recibos assinados, exemplo de comando com botão de copiar |
 | **What's coming** | `#coming` | dez slots tapados e um contador |
 | **Roadmap** | `#roadmap` | Now + 5 fases, só com os títulos |
 | FAQ | `#faq` | nove perguntas |
@@ -191,6 +192,18 @@ conversa, o chip em "Built on", as menções no hero, nos passos e na roadmap, e
 As cinco regras de aprovação não se perderam — passaram para dentro da secção `#panel`,
 que é agora o único sítio onde se aprova um pagamento. O link "Approvals" saiu da
 navegação e do rodapé, e a barra ficou com oito links em vez de nove.
+
+## Contraste
+
+Todo o texto a `--dim` falhava o mínimo das normas: entre **3,41:1 e 3,87:1**, contra os
+4,5:1 exigidos. Oito sítios — legendas dos números, links do rodapé, o "porquê" nos
+cartões do hero, o "Built on", os crachás.
+
+Era um token só. `--dim` passou de `#626c82` para `#7a8296`, e tudo subiu para o intervalo
+**4,67:1 – 6,77:1**. A hierarquia mantém-se: `--dim` continua mais apagado que `--muted`,
+que continua mais apagado que `--fg`.
+
+Para voltar atrás é mudar essa linha no topo do `styles.css` — mas repõe a falha.
 
 ## O que ficou de fora, de propósito
 

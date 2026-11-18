@@ -10,7 +10,7 @@
   --bg:#030509;
   --ink:#f3f5fa;
   --muted:#9aa3b6;
-  --dim:#626c82;
+  --dim:#7a8296;        /* 5.0:1 or better everywhere it is used; #626c82 was 3.4 */
 
   /* glass */
   --glass:rgba(13,18,30,.62);
@@ -512,6 +512,70 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 .pnl__fp{width:17px;height:17px;flex:none}
 
 /* ============================================================
+   VERIFIED EXECUTION
+   ============================================================ */
+.vwork{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;margin-top:34px}
+/* grid items default to min-width:auto, so the <pre> would widen its own
+   track instead of scrolling inside it. */
+.vwork > *{min-width:0}
+.cb{min-width:0;max-width:100%}
+.vwork__h{
+  font-family:var(--mono);font-size:.6875rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:22px;
+}
+.vsteps{display:flex;flex-direction:column;gap:2px}
+.vstep{
+  display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;
+  padding:18px 0;border-bottom:1px solid var(--line);
+}
+.vstep:last-child{border-bottom:0}
+.vstep__n{font-family:var(--mono);font-size:.75rem;font-weight:600;color:var(--blue);padding-top:2px}
+.vstep p{font-size:.9063rem;color:var(--muted);line-height:1.7}
+
+/* code sample */
+.cb{overflow:hidden;margin-bottom:18px}
+.cb__head{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:11px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);
+}
+.cb__name{font-family:var(--mono);font-size:.6875rem;letter-spacing:.08em;color:var(--dim)}
+.cb__copy{
+  font-family:var(--mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 12px;border-radius:var(--r-full);
+  border:1px solid var(--line-2);background:var(--glass-3);color:var(--muted);
+  transition:color var(--t),border-color var(--t),background var(--t);
+}
+.cb__copy:hover{color:var(--ink);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.07)}
+.cb__body{
+  margin:0;padding:18px 16px;overflow-x:auto;max-width:100%;
+  font-family:var(--mono);font-size:.75rem;line-height:1.95;
+}
+.cb__cmd{color:var(--ink)}
+.cb__out{color:var(--blue-lt)}
+
+/* badged feature list */
+.vitems{display:flex;flex-direction:column;gap:8px}
+.vitem{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:13px 18px;border-radius:var(--r-md);
+  border:1px solid var(--line);background:var(--glass-2);
+  font-size:.875rem;color:var(--muted);transition:border-color var(--t);
+}
+.vitem[data-status="live"]{border-color:rgba(26,215,234,.26);color:var(--ink)}
+
+.vnote{
+  margin-top:34px;padding:26px 30px;border-radius:var(--r-md);
+  border:1px solid rgba(43,138,248,.22);background:rgba(43,138,248,.07);
+}
+.vnote h3{
+  font-family:var(--mono);font-size:.6875rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--blue-lt);margin-bottom:14px;
+}
+.vnote p{font-size:.9375rem;color:var(--muted);line-height:1.75}
+.vnote p + p{margin-top:12px}
+.vnote strong{color:var(--ink);font-weight:600}
+
+/* ============================================================
    HIDDEN SLOTS — "What's coming"
    Nothing names the feature until it ships; the bar is drawn in CSS,
    so there is no title to read in the page source either.
@@ -692,7 +756,7 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
 
 @media (max-width:900px){
   .hero{padding:calc(var(--nav-h) + 56px) 0 76px}
-  .hero__in,.flow-grid,.x4,.panel-grid{grid-template-columns:1fr;gap:40px}
+  .hero__in,.flow-grid,.x4,.panel-grid,.vwork{grid-template-columns:1fr;gap:40px}
   .sec{padding:76px 0}
   .head{margin-bottom:40px}
   .calc{position:static}
@@ -711,6 +775,8 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
   .wrap{padding-inline:18px}
   .stats{grid-template-columns:repeat(2,1fr)}
   .grid3,.pcards{grid-template-columns:1fr}
+  .vitem{flex-direction:column;align-items:flex-start;gap:9px}
+  .vnote{padding:22px 20px}
   .hero__cta{flex-direction:column;align-items:stretch}
   .hero__cta .btn{justify-content:space-between;width:100%}
   .nav__right .btn{display:none}
