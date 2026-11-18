@@ -473,6 +473,8 @@ input[type=range]::-moz-range-track{height:4px;border-radius:var(--r-full);backg
    THE PANEL
    ============================================================ */
 .head__badge{margin-top:22px}
+.head__tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:22px}
+.head--left .head__tags{justify-content:flex-start}
 
 .panel-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center}
 .pcards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
